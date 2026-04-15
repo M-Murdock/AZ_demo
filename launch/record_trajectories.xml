@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+  <!-- <node pkg="kortex_bringup" exec="gen3.launch" name="gen3.launch"/> -->
+  <include file="$(find-pkg-share kinova_gen3_7dof_robotiq_2f_85_moveit_config)/launch/robot.launch.py" >
+        <arg name="use_fake_hardware" value="true" />
+        <arg name="robot_ip" value="yyy.yyy.yyy.yyy" />
+  </include>
+
+  <!-- put code here to launch node which will track and record trajectories -->
+</launch>
