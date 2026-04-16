@@ -36,9 +36,9 @@ setup(
     license='TODO',
     # Like the CMakeLists add_executable macro, you can add your python
     # scripts here.
-    # entry_points={
-    #     'console_scripts': [
-    #         'my_script = my_package.my_script:main'
-    #     ],
-    # },
+    entry_points={
+        'console_scripts': [
+            'get_joints = AZ_demo.get_joints:main'
+        ],
+    },
 )
