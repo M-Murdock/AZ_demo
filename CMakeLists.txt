@@ -18,6 +18,10 @@ install(PROGRAMS src/execute_trajectory.py
   DESTINATION lib/${PROJECT_NAME}
   RENAME execute_trajectory)
 
+install(PROGRAMS src/trajectory_gui.py
+  DESTINATION lib/${PROJECT_NAME}
+  RENAME trajectory_gui)
+  
 # Install launch files
 install(DIRECTORY launch/
   DESTINATION share/${PROJECT_NAME}/launch

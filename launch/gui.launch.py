@@ -9,12 +9,6 @@ import os
 
 def generate_launch_description():
 
-    output_file_arg = DeclareLaunchArgument(
-        'output_file',
-        default_value='~/ros2_ws/src/AZ_demo/recorded_trajectories/trajectory.json',
-        description='Path to save the recorded trajectory JSON file'
-    )
-
     robot_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(
@@ -29,16 +23,14 @@ def generate_launch_description():
         }.items()
     )
 
-    joint_states_listener = Node(
+    trajectory_gui = Node(
         package='AZ_demo',
-        executable='get_joints',
-        name='get_joints',
+        executable='trajectory_gui',
+        name='trajectory_gui',
         output='screen',
-        arguments=[LaunchConfiguration('output_file')]
     )
 
     return LaunchDescription([
-        output_file_arg,
         robot_launch,
-        joint_states_listener,
+        trajectory_gui,
     ])
