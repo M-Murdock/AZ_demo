@@ -1,0 +1,11 @@
+source;share/AZ_demo/hook/cmake_prefix_path.ps1
+source;share/AZ_demo/hook/cmake_prefix_path.dsv
+source;share/AZ_demo/hook/cmake_prefix_path.sh
+source;share/AZ_demo/hook/pythonpath.ps1
+source;share/AZ_demo/hook/pythonpath.dsv
+source;share/AZ_demo/hook/pythonpath.sh
+source;share/AZ_demo/local_setup.bash
+source;share/AZ_demo/local_setup.dsv
+source;share/AZ_demo/local_setup.ps1
+source;share/AZ_demo/local_setup.sh
+source;share/AZ_demo/local_setup.zsh

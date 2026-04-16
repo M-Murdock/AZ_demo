@@ -1,0 +1,112 @@
+[0.111s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build', '--packages-select', 'AZ_demo']
+[0.111s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=8, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=['AZ_demo'], packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x763e6f7a9670>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x763e6f8c9eb0>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x763e6f8c9eb0>>, mixin_verb=('build',))
+[0.149s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.150s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.150s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.150s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.150s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.150s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.150s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/mavis/ros2_ws/src/AZ_demo'
+[0.150s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.150s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.150s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.150s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.150s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.150s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.150s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.150s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.150s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.179s] DEBUG:colcon.colcon_core.package_identification:Package '.' with type 'ros.ament_cmake' and name 'AZ_demo'
+[0.179s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.179s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.179s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.179s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.179s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.201s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.201s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.206s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 69 installed packages in /home/mavis/ros2_ws/install
+[0.208s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 371 installed packages in /opt/ros/jazzy
+[0.210s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.264s] Level 5:colcon.colcon_core.verb:set package 'AZ_demo' build argument 'cmake_args' from command line to 'None'
+[0.265s] Level 5:colcon.colcon_core.verb:set package 'AZ_demo' build argument 'cmake_target' from command line to 'None'
+[0.265s] Level 5:colcon.colcon_core.verb:set package 'AZ_demo' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.265s] Level 5:colcon.colcon_core.verb:set package 'AZ_demo' build argument 'cmake_clean_cache' from command line to 'False'
+[0.265s] Level 5:colcon.colcon_core.verb:set package 'AZ_demo' build argument 'cmake_clean_first' from command line to 'False'
+[0.265s] Level 5:colcon.colcon_core.verb:set package 'AZ_demo' build argument 'cmake_force_configure' from command line to 'False'
+[0.265s] Level 5:colcon.colcon_core.verb:set package 'AZ_demo' build argument 'ament_cmake_args' from command line to 'None'
+[0.265s] Level 5:colcon.colcon_core.verb:set package 'AZ_demo' build argument 'catkin_cmake_args' from command line to 'None'
+[0.265s] Level 5:colcon.colcon_core.verb:set package 'AZ_demo' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.265s] DEBUG:colcon.colcon_core.verb:Building package 'AZ_demo' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/mavis/ros2_ws/src/AZ_demo/build/AZ_demo', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo', 'merge_install': False, 'path': '/home/mavis/ros2_ws/src/AZ_demo', 'symlink_install': False, 'test_result_base': None}
+[0.265s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.266s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.266s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/mavis/ros2_ws/src/AZ_demo' with build type 'ament_cmake'
+[0.267s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/mavis/ros2_ws/src/AZ_demo'
+[0.268s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.269s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.269s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.284s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/mavis/ros2_ws/src/AZ_demo/build/AZ_demo': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/mavis/ros2_ws/install/rqt_joint_trajectory_controller:/home/mavis/ros2_ws/install/rqt_controller_manager:/home/mavis/ros2_ws/install/ros2controlcli:/home/mavis/ros2_ws/install/ros2_controllers_test_nodes:/home/mavis/ros2_ws/install/generate_parameter_module_example:/home/mavis/ros2_ws/install/generate_parameter_library_py:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/mavis/ros2_ws/src/AZ_demo/build/AZ_demo -- -j8 -l8
+[1.423s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/mavis/ros2_ws/src/AZ_demo/build/AZ_demo' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/mavis/ros2_ws/install/rqt_joint_trajectory_controller:/home/mavis/ros2_ws/install/rqt_controller_manager:/home/mavis/ros2_ws/install/ros2controlcli:/home/mavis/ros2_ws/install/ros2_controllers_test_nodes:/home/mavis/ros2_ws/install/generate_parameter_module_example:/home/mavis/ros2_ws/install/generate_parameter_library_py:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/mavis/ros2_ws/src/AZ_demo/build/AZ_demo -- -j8 -l8
+[1.451s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/mavis/ros2_ws/src/AZ_demo/build/AZ_demo': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/mavis/ros2_ws/install/rqt_joint_trajectory_controller:/home/mavis/ros2_ws/install/rqt_controller_manager:/home/mavis/ros2_ws/install/ros2controlcli:/home/mavis/ros2_ws/install/ros2_controllers_test_nodes:/home/mavis/ros2_ws/install/generate_parameter_module_example:/home/mavis/ros2_ws/install/generate_parameter_library_py:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/mavis/ros2_ws/src/AZ_demo/build/AZ_demo
+[1.539s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(AZ_demo)
+[1.540s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/mavis/ros2_ws/src/AZ_demo/build/AZ_demo' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/mavis/ros2_ws/install/rqt_joint_trajectory_controller:/home/mavis/ros2_ws/install/rqt_controller_manager:/home/mavis/ros2_ws/install/ros2controlcli:/home/mavis/ros2_ws/install/ros2_controllers_test_nodes:/home/mavis/ros2_ws/install/generate_parameter_module_example:/home/mavis/ros2_ws/install/generate_parameter_library_py:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/mavis/ros2_ws/src/AZ_demo/build/AZ_demo
+[1.542s] Level 1:colcon.colcon_core.environment:checking '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo' for CMake module files
+[1.543s] Level 1:colcon.colcon_core.environment:checking '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo' for CMake config files
+[1.543s] Level 1:colcon.colcon_core.shell:create_environment_hook('AZ_demo', 'cmake_prefix_path')
+[1.543s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/hook/cmake_prefix_path.ps1'
+[1.544s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/hook/cmake_prefix_path.dsv'
+[1.544s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/hook/cmake_prefix_path.sh'
+[1.545s] Level 1:colcon.colcon_core.environment:checking '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/lib'
+[1.545s] Level 1:colcon.colcon_core.environment:checking '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/bin'
+[1.545s] Level 1:colcon.colcon_core.environment:checking '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/lib/pkgconfig/AZ_demo.pc'
+[1.546s] Level 1:colcon.colcon_core.environment:checking '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/lib/python3.12/site-packages'
+[1.546s] Level 1:colcon.colcon_core.shell:create_environment_hook('AZ_demo', 'pythonpath')
+[1.546s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/hook/pythonpath.ps1'
+[1.546s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/hook/pythonpath.dsv'
+[1.547s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/hook/pythonpath.sh'
+[1.547s] Level 1:colcon.colcon_core.environment:checking '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/bin'
+[1.547s] INFO:colcon.colcon_core.shell:Creating package script '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/package.ps1'
+[1.548s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/package.dsv'
+[1.549s] INFO:colcon.colcon_core.shell:Creating package script '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/package.sh'
+[1.549s] INFO:colcon.colcon_core.shell:Creating package script '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/package.bash'
+[1.550s] INFO:colcon.colcon_core.shell:Creating package script '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/package.zsh'
+[1.551s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/colcon-core/packages/AZ_demo)
+[1.551s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(AZ_demo)
+[1.552s] Level 1:colcon.colcon_core.environment:checking '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo' for CMake module files
+[1.552s] Level 1:colcon.colcon_core.environment:checking '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo' for CMake config files
+[1.553s] Level 1:colcon.colcon_core.shell:create_environment_hook('AZ_demo', 'cmake_prefix_path')
+[1.553s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/hook/cmake_prefix_path.ps1'
+[1.553s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/hook/cmake_prefix_path.dsv'
+[1.554s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/hook/cmake_prefix_path.sh'
+[1.555s] Level 1:colcon.colcon_core.environment:checking '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/lib'
+[1.555s] Level 1:colcon.colcon_core.environment:checking '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/bin'
+[1.555s] Level 1:colcon.colcon_core.environment:checking '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/lib/pkgconfig/AZ_demo.pc'
+[1.555s] Level 1:colcon.colcon_core.environment:checking '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/lib/python3.12/site-packages'
+[1.556s] Level 1:colcon.colcon_core.shell:create_environment_hook('AZ_demo', 'pythonpath')
+[1.556s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/hook/pythonpath.ps1'
+[1.556s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/hook/pythonpath.dsv'
+[1.557s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/hook/pythonpath.sh'
+[1.558s] Level 1:colcon.colcon_core.environment:checking '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/bin'
+[1.558s] INFO:colcon.colcon_core.shell:Creating package script '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/package.ps1'
+[1.560s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/package.dsv'
+[1.560s] INFO:colcon.colcon_core.shell:Creating package script '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/package.sh'
+[1.561s] INFO:colcon.colcon_core.shell:Creating package script '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/package.bash'
+[1.562s] INFO:colcon.colcon_core.shell:Creating package script '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/package.zsh'
+[1.562s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/colcon-core/packages/AZ_demo)
+[1.563s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[1.563s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[1.564s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[1.564s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[1.575s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[1.575s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[1.575s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[1.599s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[1.600s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/mavis/ros2_ws/src/AZ_demo/install/local_setup.ps1'
+[1.603s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/mavis/ros2_ws/src/AZ_demo/install/_local_setup_util_ps1.py'
+[1.607s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/mavis/ros2_ws/src/AZ_demo/install/setup.ps1'
+[1.614s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/mavis/ros2_ws/src/AZ_demo/install/local_setup.sh'
+[1.615s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/mavis/ros2_ws/src/AZ_demo/install/_local_setup_util_sh.py'
+[1.617s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/mavis/ros2_ws/src/AZ_demo/install/setup.sh'
+[1.626s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/mavis/ros2_ws/src/AZ_demo/install/local_setup.bash'
+[1.627s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/mavis/ros2_ws/src/AZ_demo/install/setup.bash'
+[1.633s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/mavis/ros2_ws/src/AZ_demo/install/local_setup.zsh'
+[1.634s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/mavis/ros2_ws/src/AZ_demo/install/setup.zsh'

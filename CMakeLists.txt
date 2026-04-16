@@ -19,11 +19,13 @@ install(TARGETS execute_prerecorded
 
 ament_python_install_package(${PROJECT_NAME})
 
-install(PROGRAMS
-  src/get_joints.py          # adjust path to wherever your .py lives
+install(PROGRAMS src/get_joints.py
   DESTINATION lib/${PROJECT_NAME}
-  RENAME get_joints
-)
+  RENAME get_joints)
+
+install(PROGRAMS src/execute_trajectory.py
+  DESTINATION lib/${PROJECT_NAME}
+  RENAME execute_trajectory)
 
 # Install launch files
 install(DIRECTORY launch/

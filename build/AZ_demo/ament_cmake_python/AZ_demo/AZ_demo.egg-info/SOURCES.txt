@@ -1,0 +1,7 @@
+setup.cfg
+setup.py
+AZ_demo/__init__.py
+AZ_demo.egg-info/PKG-INFO
+AZ_demo.egg-info/SOURCES.txt
+AZ_demo.egg-info/dependency_links.txt
+AZ_demo.egg-info/top_level.txt

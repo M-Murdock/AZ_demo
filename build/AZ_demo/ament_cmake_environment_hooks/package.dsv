@@ -1,0 +1,4 @@
+source;share/AZ_demo/local_setup.bash
+source;share/AZ_demo/local_setup.dsv
+source;share/AZ_demo/local_setup.sh
+source;share/AZ_demo/local_setup.zsh

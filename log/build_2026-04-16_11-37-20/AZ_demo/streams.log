@@ -1,0 +1,46 @@
+[0.018s] Invoking command in '/home/mavis/ros2_ws/src/AZ_demo/build/AZ_demo': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/mavis/ros2_ws/install/rqt_joint_trajectory_controller:/home/mavis/ros2_ws/install/rqt_controller_manager:/home/mavis/ros2_ws/install/ros2controlcli:/home/mavis/ros2_ws/install/ros2_controllers_test_nodes:/home/mavis/ros2_ws/install/generate_parameter_module_example:/home/mavis/ros2_ws/install/generate_parameter_library_py:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/mavis/ros2_ws/src/AZ_demo/build/AZ_demo -- -j8 -l8
+[0.128s] [100%] Built target execute_prerecorded
+[0.146s] [100%] Built target ament_cmake_python_copy_AZ_demo
+[0.146s] [100%] Built target ament_cmake_python_copy_AZ_demo_setup
+[0.430s] running egg_info
+[0.454s] writing AZ_demo.egg-info/PKG-INFO
+[0.454s] writing dependency_links to AZ_demo.egg-info/dependency_links.txt
+[0.454s] writing top-level names to AZ_demo.egg-info/top_level.txt
+[0.519s] reading manifest file 'AZ_demo.egg-info/SOURCES.txt'
+[0.519s] writing manifest file 'AZ_demo.egg-info/SOURCES.txt'
+[0.555s] [100%] Built target ament_cmake_python_build_AZ_demo_egg
+[0.571s] Invoked command in '/home/mavis/ros2_ws/src/AZ_demo/build/AZ_demo' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/mavis/ros2_ws/install/rqt_joint_trajectory_controller:/home/mavis/ros2_ws/install/rqt_controller_manager:/home/mavis/ros2_ws/install/ros2controlcli:/home/mavis/ros2_ws/install/ros2_controllers_test_nodes:/home/mavis/ros2_ws/install/generate_parameter_module_example:/home/mavis/ros2_ws/install/generate_parameter_library_py:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/mavis/ros2_ws/src/AZ_demo/build/AZ_demo -- -j8 -l8
+[0.587s] Invoking command in '/home/mavis/ros2_ws/src/AZ_demo/build/AZ_demo': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/mavis/ros2_ws/install/rqt_joint_trajectory_controller:/home/mavis/ros2_ws/install/rqt_controller_manager:/home/mavis/ros2_ws/install/ros2controlcli:/home/mavis/ros2_ws/install/ros2_controllers_test_nodes:/home/mavis/ros2_ws/install/generate_parameter_module_example:/home/mavis/ros2_ws/install/generate_parameter_library_py:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/mavis/ros2_ws/src/AZ_demo/build/AZ_demo
+[0.608s] -- Install configuration: ""
+[0.609s] -- Up-to-date: /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/lib/AZ_demo/execute_prerecorded
+[0.609s] -- Up-to-date: /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/environment/pythonpath.sh
+[0.609s] -- Up-to-date: /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/environment/pythonpath.dsv
+[0.609s] -- Up-to-date: /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/lib/python3.12/site-packages/AZ_demo-0.0.0-py3.12.egg-info
+[0.610s] -- Installing: /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/lib/python3.12/site-packages/AZ_demo-0.0.0-py3.12.egg-info/dependency_links.txt
+[0.610s] -- Installing: /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/lib/python3.12/site-packages/AZ_demo-0.0.0-py3.12.egg-info/PKG-INFO
+[0.610s] -- Installing: /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/lib/python3.12/site-packages/AZ_demo-0.0.0-py3.12.egg-info/SOURCES.txt
+[0.610s] -- Installing: /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/lib/python3.12/site-packages/AZ_demo-0.0.0-py3.12.egg-info/top_level.txt
+[0.610s] -- Up-to-date: /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/lib/python3.12/site-packages/AZ_demo
+[0.610s] -- Up-to-date: /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/lib/python3.12/site-packages/AZ_demo/__init__.py
+[0.658s] Listing '/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/lib/python3.12/site-packages/AZ_demo'...
+[0.664s] -- Up-to-date: /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/lib/AZ_demo/get_joints
+[0.664s] -- Up-to-date: /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/launch
+[0.664s] -- Up-to-date: /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/launch/launch_arm.xml
+[0.665s] -- Up-to-date: /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/launch/record_trajectories.xml
+[0.665s] -- Installing: /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/launch/record.launch.py
+[0.665s] -- Up-to-date: /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/ament_index/resource_index/package_run_dependencies/AZ_demo
+[0.665s] -- Up-to-date: /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/ament_index/resource_index/parent_prefix_path/AZ_demo
+[0.665s] -- Up-to-date: /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/environment/ament_prefix_path.sh
+[0.665s] -- Up-to-date: /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/environment/ament_prefix_path.dsv
+[0.665s] -- Up-to-date: /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/environment/path.sh
+[0.665s] -- Up-to-date: /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/environment/path.dsv
+[0.665s] -- Up-to-date: /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/local_setup.bash
+[0.665s] -- Up-to-date: /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/local_setup.sh
+[0.665s] -- Up-to-date: /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/local_setup.zsh
+[0.665s] -- Up-to-date: /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/local_setup.dsv
+[0.665s] -- Up-to-date: /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/package.dsv
+[0.666s] -- Up-to-date: /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/ament_index/resource_index/packages/AZ_demo
+[0.666s] -- Up-to-date: /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/cmake/AZ_demoConfig.cmake
+[0.666s] -- Up-to-date: /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/cmake/AZ_demoConfig-version.cmake
+[0.666s] -- Up-to-date: /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/package.xml
+[0.667s] Invoked command in '/home/mavis/ros2_ws/src/AZ_demo/build/AZ_demo' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/mavis/ros2_ws/install/rqt_joint_trajectory_controller:/home/mavis/ros2_ws/install/rqt_controller_manager:/home/mavis/ros2_ws/install/ros2controlcli:/home/mavis/ros2_ws/install/ros2_controllers_test_nodes:/home/mavis/ros2_ws/install/generate_parameter_module_example:/home/mavis/ros2_ws/install/generate_parameter_library_py:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/mavis/ros2_ws/src/AZ_demo/build/AZ_demo
