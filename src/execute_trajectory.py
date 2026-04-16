@@ -19,8 +19,6 @@ with open(os.path.expanduser('~/ros2_ws/src/AZ_demo/trajectory.json'), 'r') as f
 
 TRAJECTORY = data["trajectory"]
 WAYPOINT_TIMES = data["waypoint_times"]
-print("WAYPOINT WAYPOINT WAYPOINT \n\n\n\n\n")
-print(WAYPOINT_TIMES)
 
 # Define your trajectory here as a list of joint positions (radians)
 # Each entry is one waypoint: [joint_1, joint_2, joint_3, joint_4, joint_5, joint_6, joint_7]

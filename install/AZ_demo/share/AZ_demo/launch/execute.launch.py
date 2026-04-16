@@ -22,14 +22,14 @@ def generate_launch_description():
         }.items()
     )
 
-    joint_states_listener = Node(
+    trajectory_executor = Node(
         package='AZ_demo',
-        executable='get_joints',
-        name='get_joints',
+        executable='execute_trajectory',
+        name='execute_trajectory',
         output='screen'
     )
 
     return LaunchDescription([
         robot_launch,
-        joint_states_listener,
+        trajectory_executor,
     ])

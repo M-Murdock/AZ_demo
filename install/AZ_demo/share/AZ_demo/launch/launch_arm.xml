@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<launch>
-  <!-- <node pkg="kortex_bringup" exec="gen3.launch" name="gen3.launch"/> -->
-  <include file="$(find-pkg-share kortex_bringup)/launch/gen3.launch.py" >
-        <arg name="use_fake_hardware" value="true" />
-        <arg name="robot_ip" value="yyy.yyy.yyy.yyy" />
-  </include>
-</launch>

@@ -63,7 +63,6 @@ CMAKE_BINARY_DIR = /home/mavis/ros2_ws/src/AZ_demo/build/AZ_demo
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/execute_prerecorded.dir/all
 all: CMakeFiles/ament_cmake_python_build_AZ_demo_egg.dir/all
 .PHONY : all
 
@@ -74,7 +73,6 @@ preinstall:
 # The main recursive "clean" target.
 clean: CMakeFiles/uninstall.dir/clean
 clean: CMakeFiles/AZ_demo_uninstall.dir/clean
-clean: CMakeFiles/execute_prerecorded.dir/clean
 clean: CMakeFiles/ament_cmake_python_copy_AZ_demo.dir/clean
 clean: CMakeFiles/ament_cmake_python_copy_AZ_demo_setup.dir/clean
 clean: CMakeFiles/ament_cmake_python_build_AZ_demo_egg.dir/clean
@@ -133,32 +131,6 @@ CMakeFiles/AZ_demo_uninstall.dir/clean:
 .PHONY : CMakeFiles/AZ_demo_uninstall.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/execute_prerecorded.dir
-
-# All Build rule for target.
-CMakeFiles/execute_prerecorded.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/execute_prerecorded.dir/build.make CMakeFiles/execute_prerecorded.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/execute_prerecorded.dir/build.make CMakeFiles/execute_prerecorded.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/mavis/ros2_ws/src/AZ_demo/build/AZ_demo/CMakeFiles --progress-num=1,2 "Built target execute_prerecorded"
-.PHONY : CMakeFiles/execute_prerecorded.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/execute_prerecorded.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mavis/ros2_ws/src/AZ_demo/build/AZ_demo/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/execute_prerecorded.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mavis/ros2_ws/src/AZ_demo/build/AZ_demo/CMakeFiles 0
-.PHONY : CMakeFiles/execute_prerecorded.dir/rule
-
-# Convenience name for target.
-execute_prerecorded: CMakeFiles/execute_prerecorded.dir/rule
-.PHONY : execute_prerecorded
-
-# clean rule for target.
-CMakeFiles/execute_prerecorded.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/execute_prerecorded.dir/build.make CMakeFiles/execute_prerecorded.dir/clean
-.PHONY : CMakeFiles/execute_prerecorded.dir/clean
-
-#=============================================================================
 # Target rules for target CMakeFiles/ament_cmake_python_copy_AZ_demo.dir
 
 # All Build rule for target.
@@ -214,8 +186,8 @@ CMakeFiles/ament_cmake_python_copy_AZ_demo_setup.dir/clean:
 # Target rules for target CMakeFiles/ament_cmake_python_build_AZ_demo_egg.dir
 
 # All Build rule for target.
-CMakeFiles/ament_cmake_python_build_AZ_demo_egg.dir/all: CMakeFiles/ament_cmake_python_copy_AZ_demo.dir/all
 CMakeFiles/ament_cmake_python_build_AZ_demo_egg.dir/all: CMakeFiles/ament_cmake_python_copy_AZ_demo_setup.dir/all
+CMakeFiles/ament_cmake_python_build_AZ_demo_egg.dir/all: CMakeFiles/ament_cmake_python_copy_AZ_demo.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ament_cmake_python_build_AZ_demo_egg.dir/build.make CMakeFiles/ament_cmake_python_build_AZ_demo_egg.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ament_cmake_python_build_AZ_demo_egg.dir/build.make CMakeFiles/ament_cmake_python_build_AZ_demo_egg.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/mavis/ros2_ws/src/AZ_demo/build/AZ_demo/CMakeFiles --progress-num= "Built target ament_cmake_python_build_AZ_demo_egg"

@@ -21,7 +21,7 @@
 			{
 				"command" : 2,
 				"file" : 1,
-				"line" : 20,
+				"line" : 11,
 				"parent" : 0
 			},
 			{
@@ -33,22 +33,13 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 144,
+				"line" : 130,
 				"parent" : 2
 			}
 		]
 	},
-	"dependencies" : 
-	[
-		{
-			"id" : "ament_cmake_python_copy_AZ_demo::@6890427a1f51a3e7e1df"
-		},
-		{
-			"id" : "ament_cmake_python_copy_AZ_demo_setup::@6890427a1f51a3e7e1df"
-		}
-	],
-	"id" : "ament_cmake_python_build_AZ_demo_egg::@6890427a1f51a3e7e1df",
-	"name" : "ament_cmake_python_build_AZ_demo_egg",
+	"id" : "ament_cmake_python_copy_AZ_demo_setup::@6890427a1f51a3e7e1df",
+	"name" : "ament_cmake_python_copy_AZ_demo_setup",
 	"paths" : 
 	{
 		"build" : ".",
@@ -76,13 +67,13 @@
 		{
 			"backtrace" : 3,
 			"isGenerated" : true,
-			"path" : "build/AZ_demo/CMakeFiles/ament_cmake_python_build_AZ_demo_egg",
+			"path" : "build/AZ_demo/CMakeFiles/ament_cmake_python_copy_AZ_demo_setup",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 0,
 			"isGenerated" : true,
-			"path" : "build/AZ_demo/CMakeFiles/ament_cmake_python_build_AZ_demo_egg.rule",
+			"path" : "build/AZ_demo/CMakeFiles/ament_cmake_python_copy_AZ_demo_setup.rule",
 			"sourceGroupIndex" : 1
 		}
 	],

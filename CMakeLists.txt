@@ -6,16 +6,7 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 find_package(ament_cmake REQUIRED)
-find_package(ament_cmake_python REQUIRED)  # ADD THIS
-
-# --- C++ executable (unchanged) ---
-add_executable(execute_prerecorded src/execute_prerecorded.cpp)
-target_include_directories(execute_prerecorded PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include/${PROJECT_NAME}>)
-target_compile_features(execute_prerecorded PUBLIC c_std_99 cxx_std_17)
-install(TARGETS execute_prerecorded
-  DESTINATION lib/${PROJECT_NAME})
+find_package(ament_cmake_python REQUIRED)
 
 ament_python_install_package(${PROJECT_NAME})
 

@@ -198,19 +198,6 @@ AZ_demo_uninstall/fast:
 .PHONY : AZ_demo_uninstall/fast
 
 #=============================================================================
-# Target rules for targets named execute_prerecorded
-
-# Build rule for target.
-execute_prerecorded: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 execute_prerecorded
-.PHONY : execute_prerecorded
-
-# fast build rule for target.
-execute_prerecorded/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/execute_prerecorded.dir/build.make CMakeFiles/execute_prerecorded.dir/build
-.PHONY : execute_prerecorded/fast
-
-#=============================================================================
 # Target rules for targets named ament_cmake_python_copy_AZ_demo
 
 # Build rule for target.
@@ -249,30 +236,6 @@ ament_cmake_python_build_AZ_demo_egg/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ament_cmake_python_build_AZ_demo_egg.dir/build.make CMakeFiles/ament_cmake_python_build_AZ_demo_egg.dir/build
 .PHONY : ament_cmake_python_build_AZ_demo_egg/fast
 
-src/execute_prerecorded.o: src/execute_prerecorded.cpp.o
-.PHONY : src/execute_prerecorded.o
-
-# target to build an object file
-src/execute_prerecorded.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/execute_prerecorded.dir/build.make CMakeFiles/execute_prerecorded.dir/src/execute_prerecorded.cpp.o
-.PHONY : src/execute_prerecorded.cpp.o
-
-src/execute_prerecorded.i: src/execute_prerecorded.cpp.i
-.PHONY : src/execute_prerecorded.i
-
-# target to preprocess a source file
-src/execute_prerecorded.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/execute_prerecorded.dir/build.make CMakeFiles/execute_prerecorded.dir/src/execute_prerecorded.cpp.i
-.PHONY : src/execute_prerecorded.cpp.i
-
-src/execute_prerecorded.s: src/execute_prerecorded.cpp.s
-.PHONY : src/execute_prerecorded.s
-
-# target to generate assembly for a file
-src/execute_prerecorded.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/execute_prerecorded.dir/build.make CMakeFiles/execute_prerecorded.dir/src/execute_prerecorded.cpp.s
-.PHONY : src/execute_prerecorded.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -291,10 +254,6 @@ help:
 	@echo "... ament_cmake_python_copy_AZ_demo"
 	@echo "... ament_cmake_python_copy_AZ_demo_setup"
 	@echo "... uninstall"
-	@echo "... execute_prerecorded"
-	@echo "... src/execute_prerecorded.o"
-	@echo "... src/execute_prerecorded.i"
-	@echo "... src/execute_prerecorded.s"
 .PHONY : help
 
 

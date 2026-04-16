@@ -1,6 +1,5 @@
 /home/mavis/ros2_ws/src/AZ_demo/build/AZ_demo/CMakeFiles/uninstall.dir
 /home/mavis/ros2_ws/src/AZ_demo/build/AZ_demo/CMakeFiles/AZ_demo_uninstall.dir
-/home/mavis/ros2_ws/src/AZ_demo/build/AZ_demo/CMakeFiles/execute_prerecorded.dir
 /home/mavis/ros2_ws/src/AZ_demo/build/AZ_demo/CMakeFiles/ament_cmake_python_copy_AZ_demo.dir
 /home/mavis/ros2_ws/src/AZ_demo/build/AZ_demo/CMakeFiles/ament_cmake_python_copy_AZ_demo_setup.dir
 /home/mavis/ros2_ws/src/AZ_demo/build/AZ_demo/CMakeFiles/ament_cmake_python_build_AZ_demo_egg.dir
