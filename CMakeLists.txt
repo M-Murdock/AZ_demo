@@ -21,6 +21,14 @@ install(PROGRAMS src/execute_trajectory.py
 install(PROGRAMS src/trajectory_gui.py
   DESTINATION lib/${PROJECT_NAME}
   RENAME trajectory_gui)
+
+install(PROGRAMS src/joy_teleop.py
+  DESTINATION lib/${PROJECT_NAME}
+  RENAME joy_teleop)
+
+install(DIRECTORY config/
+  DESTINATION share/${PROJECT_NAME}/config
+)
   
 # Install launch files
 install(DIRECTORY launch/

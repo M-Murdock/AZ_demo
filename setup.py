@@ -38,7 +38,8 @@ setup(
     # scripts here.
     entry_points={
         'console_scripts': [
-            'get_joints = AZ_demo.get_joints:main'
+            'get_joints = AZ_demo.get_joints:main',
+            'joy_teleop = AZ_demo.joy_teleop:main',,
         ],
     },
 )
