@@ -28,6 +28,7 @@ def generate_launch_description():
             'robot_ip': '192.168.1.10',  # fixed
             'gripper': 'robotiq_2f_85',
             'robot_controller': 'twist_controller',
+            'launch_rviz': 'false',
         }.items()
     )
 

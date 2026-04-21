@@ -30,7 +30,7 @@ FC_NODE_NAME    = "cartesian_admittance"
 FC_NODE_ARGS    = []
 # ─────────────────────────────────────────────────
 
-FC_NODE_DELAY = 2.0   # seconds to wait after launch before starting the node
+FC_NODE_DELAY  = 2.0   # seconds to wait after launch before starting the node
 
 
 class LauncherNode(Node):
@@ -39,17 +39,18 @@ class LauncherNode(Node):
 
 
 class App:
-    BG    = "#1a1a1a"
-    GREEN = "#00c853"
-    RED   = "#d50000"
-    BLUE  = "#1565c0"
-    MUTED = "#444444"
+    BG      = "#1a1a1a"
+    GREEN   = "#00c853"
+    RED     = "#d50000"
+    BLUE    = "#1565c0"
+    AMBER   = "#ff6f00"
 
     def __init__(self, root: tk.Tk, node: LauncherNode):
         self.root = root
         self.node = node
-        self.proc: subprocess.Popen | None = None       # launch file process
-        self.fc_node_proc: subprocess.Popen | None = None  # cartesian_admittance node
+        self.proc: subprocess.Popen | None = None
+        self.fc_node_proc: subprocess.Popen | None = None
+        self._spinner_job = None   # after() id for the spinner animation
 
         root.title("ROS2 Launcher")
         root.configure(bg=self.BG)
@@ -61,6 +62,7 @@ class App:
     # ── screens ──────────────────────────────────
 
     def _clear(self):
+        self._stop_spinner()
         for w in self.root.winfo_children():
             w.destroy()
 
@@ -75,17 +77,92 @@ class App:
         self._clear()
         frame = tk.Frame(self.root, bg=self.BG)
         frame.pack(expand=True)
-        self._btn("START",  self.GREEN, lambda: self._start(XBOX_PACKAGE, XBOX_FILE, XBOX_ARGS), parent=frame).pack(pady=8)
-        self._btn("STOP",   self.RED,   self._stop,       parent=frame).pack(pady=8)
-        self._btn("← BACK", self.MUTED, self._show_home,  parent=frame).pack(pady=8)
+
+        status_var = tk.StringVar(value="")
+
+        def on_start():
+            if self.proc and self.proc.poll() is None:
+                return
+            self._start(XBOX_PACKAGE, XBOX_FILE, XBOX_ARGS)
+            # Xbox launch is ready as soon as the process spawns
+            self._set_status(status_lbl, status_var, "● RUNNING", self.GREEN)
+
+        def on_stop():
+            self._stop()
+            self._set_status(status_lbl, status_var, "● STOPPED", self.RED)
+
+        self._btn("START", self.GREEN, on_start, parent=frame).pack(pady=8)
+        self._btn("STOP",  self.RED,   on_stop,  parent=frame).pack(pady=8)
+
+        status_lbl = tk.Label(
+            frame, textvariable=status_var,
+            font=("Helvetica", 11, "bold"),
+            fg=self.BG, bg=self.BG,   # invisible until set
+            width=18,
+        )
+        status_lbl.pack(pady=(4, 0))
 
     def _show_fc(self):
         self._clear()
         frame = tk.Frame(self.root, bg=self.BG)
         frame.pack(expand=True)
-        self._btn("START",  self.GREEN, self._start_fc,  parent=frame).pack(pady=8)
-        self._btn("STOP",   self.RED,   self._stop_fc,   parent=frame).pack(pady=8)
-        self._btn("← BACK", self.MUTED, self._show_home, parent=frame).pack(pady=8)
+
+        status_var = tk.StringVar(value="")
+
+        def on_start():
+            if self.proc and self.proc.poll() is None:
+                return
+            self._start_fc(status_var, status_lbl)
+
+        def on_stop():
+            self._stop_fc()
+            self._stop_spinner()
+            self._set_status(status_lbl, status_var, "● STOPPED", self.RED)
+
+        self._btn("START", self.GREEN, on_start, parent=frame).pack(pady=8)
+        self._btn("STOP",  self.RED,   on_stop,  parent=frame).pack(pady=8)
+
+        status_lbl = tk.Label(
+            frame, textvariable=status_var,
+            font=("Helvetica", 11, "bold"),
+            fg=self.BG, bg=self.BG,
+            width=18,
+        )
+        status_lbl.pack(pady=(4, 0))
+
+    # ── status label helpers ──────────────────────
+
+    def _set_status(self, lbl: tk.Label, var: tk.StringVar, text: str, color: str):
+        """Update the status label text and colour."""
+        try:
+            var.set(text)
+            lbl.config(fg=color, bg=self.BG)
+        except tk.TclError:
+            pass
+
+    def _start_spinner(self, lbl: tk.Label, var: tk.StringVar):
+        """Animate a waiting spinner on the status label."""
+        frames = ["◐ Starting…", "◓ Starting…", "◑ Starting…", "◒ Starting…"]
+        idx = [0]
+
+        def _tick():
+            try:
+                var.set(frames[idx[0] % len(frames)])
+                lbl.config(fg=self.AMBER, bg=self.BG)
+                idx[0] += 1
+                self._spinner_job = self.root.after(200, _tick)
+            except tk.TclError:
+                pass   # widget destroyed
+
+        _tick()
+
+    def _stop_spinner(self):
+        if self._spinner_job is not None:
+            try:
+                self.root.after_cancel(self._spinner_job)
+            except tk.TclError:
+                pass
+            self._spinner_job = None
 
     # ── xbox launch control ───────────────────────
 
@@ -99,24 +176,34 @@ class App:
 
     # ── fc launch + node control ──────────────────
 
-    def _start_fc(self):
+    def _start_fc(self, status_var: tk.StringVar, status_lbl: tk.Label):
         if self.proc and self.proc.poll() is None:
             return
         self.proc = subprocess.Popen(["ros2", "launch", FC_PACKAGE, FC_FILE] + FC_ARGS)
-        # wait briefly then start the node in a background thread
-        threading.Thread(target=self._delayed_start_fc_node, daemon=True).start()
+        self._start_spinner(status_lbl, status_var)
+        threading.Thread(
+            target=self._delayed_start_fc_node,
+            args=(status_var, status_lbl),
+            daemon=True,
+        ).start()
 
-    def _delayed_start_fc_node(self):
+    def _delayed_start_fc_node(self, status_var: tk.StringVar, status_lbl: tk.Label):
         time.sleep(FC_NODE_DELAY)
-        if self.proc and self.proc.poll() is None:  # only if launch is still running
+        if self.proc and self.proc.poll() is None:
             self.fc_node_proc = subprocess.Popen(
                 ["ros2", "run", FC_NODE_PACKAGE, FC_NODE_NAME] + FC_NODE_ARGS
             )
+            # Update UI from main thread once the node is actually running
+            self.root.after(0, lambda: (
+                self._stop_spinner(),
+                self._set_status(status_lbl, status_var, "● RUNNING", self.GREEN),
+            ))
 
     def _stop_fc(self):
         self._kill_proc(self.fc_node_proc)
         self.fc_node_proc = None
         self._kill_proc(self.proc)
+
 
     # ── shared kill helper ────────────────────────
 
@@ -138,9 +225,9 @@ class App:
         return tk.Button(
             parent, text=text, command=cmd,
             font=("Helvetica", 14, "bold"),
-            fg="#ffffff" if color == self.MUTED else self.BG,
+            fg=self.BG,
             bg=color,
-            activeforeground="#ffffff" if color == self.MUTED else self.BG,
+            activeforeground=self.BG,
             activebackground=color,
             relief="flat", padx=30, pady=12, cursor="hand2",
             width=18,
