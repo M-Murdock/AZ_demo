@@ -31,14 +31,7 @@ def generate_launch_description():
         }.items()
     )
 
-    # cartesian_admittance = Node(
-    #     package='AZ_demo',
-    #     executable='cartesian_admittance',
-    #     name='cartesian_admittance',
-    #     output='screen'
-    # )
 
     return LaunchDescription([
         robot_launch,
-        # cartesian_admittance,
     ])

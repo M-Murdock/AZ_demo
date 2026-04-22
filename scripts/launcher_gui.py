@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-ROS2 Launcher GUI — Xbox Mode & Force Control Mode
+ROS2 Launcher GUI — Xbox Mode, Force Control Mode & Web Mode
 
 Edit the config block below, then run:
     python3 ros2_launcher_gui.py
@@ -28,6 +28,14 @@ FC_ARGS       = []
 FC_NODE_PACKAGE = "AZ_demo"
 FC_NODE_NAME    = "cartesian_admittance"
 FC_NODE_ARGS    = []
+
+WEB_PACKAGE   = "AZ_demo"
+WEB_FILE      = "web_interface.launch.py"
+WEB_ARGS      = []
+
+ROBOT_PACKAGE = "AZ_demo"
+ROBOT_FILE    = "start_robot.launch.py"
+ROBOT_ARGS    = []
 # ─────────────────────────────────────────────────
 
 FC_NODE_DELAY  = 2.0   # seconds to wait after launch before starting the node
@@ -44,12 +52,15 @@ class App:
     RED     = "#d50000"
     BLUE    = "#1565c0"
     AMBER   = "#ff6f00"
+    PURPLE  = "#6a1b9a"
 
     def __init__(self, root: tk.Tk, node: LauncherNode):
         self.root = root
         self.node = node
         self.proc: subprocess.Popen | None = None
         self.fc_node_proc: subprocess.Popen | None = None
+        self.web_proc: subprocess.Popen | None = None
+        self.robot_proc: subprocess.Popen | None = None
         self._spinner_job = None   # after() id for the spinner animation
 
         root.title("ROS2 Launcher")
@@ -70,8 +81,9 @@ class App:
         self._clear()
         frame = tk.Frame(self.root, bg=self.BG)
         frame.pack(expand=True)
-        self._btn("XBOX MODE",          self.GREEN, self._show_xbox, parent=frame).pack(pady=8)
-        self._btn("FORCE CONTROL MODE", self.BLUE,  self._show_fc,   parent=frame).pack(pady=8)
+        self._btn("XBOX MODE",          self.GREEN,  self._show_xbox, parent=frame).pack(pady=8)
+        self._btn("FORCE CONTROL MODE", self.BLUE,   self._show_fc,   parent=frame).pack(pady=8)
+        self._btn("WEB",                self.PURPLE, self._show_web,  parent=frame).pack(pady=8)
 
     def _show_xbox(self):
         self._clear()
@@ -128,6 +140,51 @@ class App:
             width=18,
         )
         status_lbl.pack(pady=(4, 0))
+
+    def _show_web(self):
+        self._clear()
+        frame = tk.Frame(self.root, bg=self.BG)
+        frame.pack(expand=True)
+
+        self._btn("ARROWS", self.GREEN, self._launch_web_arrows, parent=frame).pack(pady=8)
+        self._btn("EMOJIS", self.AMBER, self._launch_web_emojis, parent=frame).pack(pady=8)
+
+        back_btn = tk.Button(
+            frame, text="← BACK", command=self._show_home,
+            font=("Helvetica", 10, "bold"),
+            fg="#888888", bg=self.BG,
+            activeforeground="#aaaaaa", activebackground=self.BG,
+            relief="flat", cursor="hand2", bd=0,
+        )
+        back_btn.pack(pady=(12, 0))
+
+    # ── web launch helpers ────────────────────────
+
+    def _launch_web_arrows(self):
+        """Launch web_interface.launch.py, start_robot.launch.py, and open index.html."""
+        if self.web_proc and self.web_proc.poll() is None:
+            return
+        self.web_proc = subprocess.Popen(
+            ["ros2", "launch", WEB_PACKAGE, WEB_FILE] + WEB_ARGS
+        )
+        if self.robot_proc and self.robot_proc.poll() is None:
+            return
+        self.robot_proc = subprocess.Popen(
+            ["ros2", "launch", ROBOT_PACKAGE, ROBOT_FILE] + ROBOT_ARGS
+        )
+        import webbrowser, pathlib
+        index = pathlib.Path(__file__).parent / "index.html"
+        webbrowser.open(index.as_uri())
+
+    def _launch_web_emojis(self):
+        """Placeholder — wire up emoji launch files here."""
+        pass
+
+    def _stop_web(self):
+        self._kill_proc(self.web_proc)
+        self.web_proc = None
+        self._kill_proc(self.robot_proc)
+        self.robot_proc = None
 
     # ── status label helpers ──────────────────────
 
@@ -243,6 +300,7 @@ def main():
     threading.Thread(target=lambda: rclpy.spin(node), daemon=True).start()
 
     def _on_close():
+        app._stop_web()
         app._kill_proc(app.fc_node_proc)
         app._kill_proc(app.proc)
         node.destroy_node()
