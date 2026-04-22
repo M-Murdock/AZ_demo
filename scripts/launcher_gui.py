@@ -89,7 +89,7 @@ class App:
 
         def on_stop():
             self._stop()
-            self._set_status(status_lbl, status_var, "● STOPPED", self.RED)
+            self._show_home()
 
         self._btn("START", self.GREEN, on_start, parent=frame).pack(pady=8)
         self._btn("STOP",  self.RED,   on_stop,  parent=frame).pack(pady=8)
@@ -116,8 +116,7 @@ class App:
 
         def on_stop():
             self._stop_fc()
-            self._stop_spinner()
-            self._set_status(status_lbl, status_var, "● STOPPED", self.RED)
+            self._show_home()
 
         self._btn("START", self.GREEN, on_start, parent=frame).pack(pady=8)
         self._btn("STOP",  self.RED,   on_stop,  parent=frame).pack(pady=8)
