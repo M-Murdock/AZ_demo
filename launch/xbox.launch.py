@@ -1,5 +1,6 @@
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription
+from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
+from launch.substitutions import LaunchConfiguration
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
@@ -32,14 +33,18 @@ def generate_launch_description():
         }.items()
     )
 
+    controller_arg = DeclareLaunchArgument('controller', default_value='web')
+
     joy_teleop = Node(
         package='AZ_demo',
         executable='joy_teleop',
+        arguments=[LaunchConfiguration('controller')],
         name='joy_teleop',
         output='screen'
     )
 
     return LaunchDescription([
+        controller_arg,
         robot_launch,
         joy_teleop,
     ])

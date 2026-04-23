@@ -22,7 +22,7 @@ XBOX_FILE     = "xbox.launch.py"
 XBOX_ARGS     = []
 
 FC_PACKAGE    = "AZ_demo"
-FC_FILE       = "force_control.launch.py"
+FC_FILE       = "start_robot.launch.py"
 FC_ARGS       = []
 
 FC_NODE_PACKAGE = "AZ_demo"
@@ -95,7 +95,7 @@ class App:
         def on_start():
             if self.proc and self.proc.poll() is None:
                 return
-            self._start(XBOX_PACKAGE, XBOX_FILE, ['xbox'])
+            self._start(XBOX_PACKAGE, XBOX_FILE, ['controller:=xbox'])
             # Xbox launch is ready as soon as the process spawns
             self._set_status(status_lbl, status_var, "● RUNNING", self.GREEN)
 
@@ -173,7 +173,7 @@ class App:
             ["ros2", "launch", ROBOT_PACKAGE, ROBOT_FILE] + ROBOT_ARGS
         )
         self.robot_proc = subprocess.Popen(
-            ["ros2", "launch", XBOX_PACKAGE, XBOX_FILE] + ['web']
+            ["ros2", "launch", XBOX_PACKAGE, XBOX_FILE] + ['controller:=web']
         )
 
         import webbrowser, pathlib
