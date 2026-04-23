@@ -1,37 +1,17 @@
 #!/usr/bin/env python3
 
 import rclpy
+import json
+import os
+import sys
 from rclpy.node import Node
-from moveit_msgs.action import MoveGroup
-from moveit_msgs.msg import MotionPlanRequest, WorkspaceParameters, Constraints, JointConstraint
-from rclpy.action import ActionClient
-from sensor_msgs.msg import JointState
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 from control_msgs.action import FollowJointTrajectory
+from rclpy.action import ActionClient
 import builtin_interfaces.msg
-import os
 
-import json
-
-data = []
-with open(os.path.expanduser('~/ros2_ws/src/AZ_demo/trajectory.json'), 'r') as f:
-    data = json.load(f)
-
-TRAJECTORY = data["trajectory"]
-WAYPOINT_TIMES = data["waypoint_times"]
-
-# Define your trajectory here as a list of joint positions (radians)
-# Each entry is one waypoint: [joint_1, joint_2, joint_3, joint_4, joint_5, joint_6, joint_7]
-# TRAJECTORY = [
-#     [0.0,    0.0,    0.0,   0.0,   0.0,   0.0,   0.0],
-#     [0.3,   -0.3,    0.3,  -0.5,   0.3,  -0.3,   0.3],
-#     [0.6,   -0.6,    0.6,  -1.0,   0.6,  -0.6,   0.6],
-#     [0.3,   -0.3,    0.3,  -0.5,   0.3,  -0.3,   0.3],
-#     [0.0,    0.0,    0.0,   0.0,   0.0,   0.0,   0.0],
-# ]
-
-# Time in seconds to reach each waypoint
-# WAYPOINT_TIMES = [0.0, 3.0, 6.0, 9.0, 12.0]
+# Default trajectory file
+DEFAULT_INPUT_FILE = os.path.expanduser('~/ros2_ws/src/AZ_demo/recorded_trajectories/trajectory.json')
 
 JOINT_NAMES = [
     'joint_1', 'joint_2', 'joint_3', 'joint_4',
@@ -41,8 +21,11 @@ JOINT_NAMES = [
 
 class TrajectoryExecutor(Node):
 
-    def __init__(self):
+    def __init__(self, input_file):
         super().__init__('trajectory_executor')
+
+        self.input_file = input_file
+        self.trajectory, self.waypoint_times = self.load_trajectory()
 
         self._action_client = ActionClient(
             self,
@@ -52,28 +35,40 @@ class TrajectoryExecutor(Node):
 
         self.get_logger().info('Waiting for action server...')
         self._action_client.wait_for_server()
-        self.get_logger().info('Action server found. Sending trajectory...')
+        self.get_logger().info(f'Loaded {len(self.trajectory)} waypoints from {self.input_file}')
+        self.get_logger().info('Sending trajectory...')
         self.send_trajectory()
+
+    def load_trajectory(self):
+        if not os.path.exists(self.input_file):
+            self.get_logger().error(f'File not found: {self.input_file}')
+            raise FileNotFoundError(f'Trajectory file not found: {self.input_file}')
+
+        with open(self.input_file, 'r') as f:
+            data = json.load(f)
+
+        trajectory = data['trajectory']
+        waypoint_times = data['waypoint_times']
+        return trajectory, waypoint_times
 
     def send_trajectory(self):
         trajectory = JointTrajectory()
         trajectory.joint_names = JOINT_NAMES
 
-        for i, positions in enumerate(TRAJECTORY):
+        for i, positions in enumerate(self.trajectory):
             point = JointTrajectoryPoint()
             point.positions = positions
             point.velocities = [0.0] * len(JOINT_NAMES)
             point.accelerations = [0.0] * len(JOINT_NAMES)
             point.time_from_start = builtin_interfaces.msg.Duration(
-                sec=int(WAYPOINT_TIMES[i]),
-                nanosec=int((WAYPOINT_TIMES[i] % 1) * 1e9)
+                sec=int(self.waypoint_times[i]),
+                nanosec=int((self.waypoint_times[i] % 1) * 1e9)
             )
             trajectory.points.append(point)
 
         goal = FollowJointTrajectory.Goal()
         goal.trajectory = trajectory
 
-        self.get_logger().info(f'Sending trajectory with {len(TRAJECTORY)} waypoints...')
         send_goal_future = self._action_client.send_goal_async(
             goal,
             feedback_callback=self.feedback_callback
@@ -105,14 +100,22 @@ class TrajectoryExecutor(Node):
 
 
 def main(args=None):
+    # Parse input file from command line, stripping ROS args first
+    filtered_args = [a for a in sys.argv[1:] if not a.startswith('--ros-args')]
+    if filtered_args:
+        input_file = os.path.expanduser(filtered_args[0])
+    else:
+        input_file = DEFAULT_INPUT_FILE
+
     rclpy.init(args=args)
-    node = TrajectoryExecutor()
+    node = TrajectoryExecutor(input_file)
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:
         pass
     finally:
         node.destroy_node()
+        rclpy.shutdown()
 
 
 if __name__ == '__main__':

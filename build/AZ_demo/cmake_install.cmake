@@ -75,6 +75,22 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/AZ_demo" TYPE PROGRAM RENAME "trajectory_gui" FILES "/home/mavis/ros2_ws/src/AZ_demo/src/trajectory_gui.py")
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/AZ_demo" TYPE PROGRAM RENAME "joy_teleop" FILES "/home/mavis/ros2_ws/src/AZ_demo/src/joy_teleop.py")
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/AZ_demo" TYPE PROGRAM RENAME "cartesian_admittance" FILES "/home/mavis/ros2_ws/src/AZ_demo/src/cartesian_admittance.py")
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/AZ_demo/config" TYPE DIRECTORY FILES "/home/mavis/ros2_ws/src/AZ_demo/config/")
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/AZ_demo/launch" TYPE DIRECTORY FILES "/home/mavis/ros2_ws/src/AZ_demo/launch/")
 endif()
 

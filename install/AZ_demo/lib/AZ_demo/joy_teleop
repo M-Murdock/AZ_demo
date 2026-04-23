@@ -23,7 +23,7 @@ from tf2_ros import Buffer, TransformListener
 
 from tf2_ros import LookupException, ConnectivityException, ExtrapolationException
 
-import sys
+
 
 
 
@@ -584,12 +584,10 @@ def launch_subprocess(cmd):
 
 
 def main(args=None):
-    controller = sys.argv[1] if len(sys.argv) > 1 else 'web'
 
     print("Launching joy_node...")
 
-    if controller == 'xbox':
-        joy_proc = launch_subprocess("ros2 run joy joy_node")
+    # joy_proc = launch_subprocess("ros2 run joy joy_node")
 
 
 
@@ -613,9 +611,9 @@ def main(args=None):
 
         rclpy.shutdown()
 
-        if controller == 'xbox':
-            joy_proc.terminate()
-            joy_proc.wait()
+        # joy_proc.terminate()
+
+        # joy_proc.wait()
 
         print("All processes stopped.")
 

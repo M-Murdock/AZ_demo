@@ -107,188 +107,212 @@
 			{
 				"command" : 0,
 				"file" : 3,
-				"line" : 22,
+				"line" : 21,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 3,
+				"line" : 25,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 3,
+				"line" : 29,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 3,
+				"line" : 33,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 3,
+				"line" : 38,
 				"parent" : 0
 			},
 			{
 				"command" : 9,
 				"file" : 3,
-				"line" : 33,
+				"line" : 49,
 				"parent" : 0
 			},
 			{
 				"command" : 8,
 				"file" : 7,
 				"line" : 66,
-				"parent" : 13
+				"parent" : 17
 			},
 			{
 				"command" : 7,
 				"file" : 6,
 				"line" : 48,
-				"parent" : 14
+				"parent" : 18
 			},
 			{
 				"file" : 5,
-				"parent" : 15
+				"parent" : 19
 			},
 			{
 				"command" : 6,
 				"file" : 5,
 				"line" : 47,
-				"parent" : 16
+				"parent" : 20
 			},
 			{
 				"command" : 5,
 				"file" : 5,
 				"line" : 29,
-				"parent" : 17
+				"parent" : 21
 			},
 			{
 				"command" : 0,
 				"file" : 4,
 				"line" : 105,
-				"parent" : 18
+				"parent" : 22
 			},
 			{
 				"command" : 10,
 				"file" : 5,
 				"line" : 48,
-				"parent" : 16
+				"parent" : 20
 			},
 			{
 				"command" : 5,
 				"file" : 5,
 				"line" : 43,
-				"parent" : 20
+				"parent" : 24
 			},
 			{
 				"command" : 0,
 				"file" : 4,
 				"line" : 105,
-				"parent" : 21
+				"parent" : 25
 			},
 			{
 				"command" : 7,
 				"file" : 6,
 				"line" : 48,
-				"parent" : 14
+				"parent" : 18
 			},
 			{
 				"file" : 8,
-				"parent" : 23
+				"parent" : 27
 			},
 			{
 				"command" : 1,
 				"file" : 8,
 				"line" : 20,
-				"parent" : 24
+				"parent" : 28
 			},
 			{
 				"command" : 0,
 				"file" : 0,
 				"line" : 70,
-				"parent" : 25
+				"parent" : 29
 			},
 			{
 				"command" : 0,
 				"file" : 0,
 				"line" : 87,
-				"parent" : 25
+				"parent" : 29
 			},
 			{
 				"command" : 0,
 				"file" : 0,
 				"line" : 70,
-				"parent" : 25
+				"parent" : 29
 			},
 			{
 				"command" : 0,
 				"file" : 0,
 				"line" : 87,
-				"parent" : 25
+				"parent" : 29
 			},
 			{
 				"command" : 11,
 				"file" : 8,
 				"line" : 26,
-				"parent" : 24
+				"parent" : 28
 			},
 			{
 				"command" : 0,
 				"file" : 9,
 				"line" : 91,
-				"parent" : 30
+				"parent" : 34
 			},
 			{
 				"command" : 0,
 				"file" : 9,
 				"line" : 91,
-				"parent" : 30
+				"parent" : 34
 			},
 			{
 				"command" : 0,
 				"file" : 9,
 				"line" : 91,
-				"parent" : 30
+				"parent" : 34
 			},
 			{
 				"command" : 0,
 				"file" : 9,
 				"line" : 107,
-				"parent" : 30
+				"parent" : 34
 			},
 			{
 				"command" : 0,
 				"file" : 9,
 				"line" : 120,
-				"parent" : 30
+				"parent" : 34
 			},
 			{
 				"command" : 7,
 				"file" : 6,
 				"line" : 48,
-				"parent" : 14
+				"parent" : 18
 			},
 			{
 				"file" : 11,
-				"parent" : 36
+				"parent" : 40
 			},
 			{
 				"command" : 12,
 				"file" : 11,
 				"line" : 16,
-				"parent" : 37
+				"parent" : 41
 			},
 			{
 				"command" : 5,
 				"file" : 10,
 				"line" : 29,
-				"parent" : 38
+				"parent" : 42
 			},
 			{
 				"command" : 0,
 				"file" : 4,
 				"line" : 105,
-				"parent" : 39
+				"parent" : 43
 			},
 			{
 				"command" : 13,
 				"file" : 7,
 				"line" : 68,
-				"parent" : 13
+				"parent" : 17
 			},
 			{
 				"command" : 0,
 				"file" : 7,
 				"line" : 150,
-				"parent" : 41
+				"parent" : 45
 			},
 			{
 				"command" : 0,
 				"file" : 7,
 				"line" : 157,
-				"parent" : 41
+				"parent" : 45
 			}
 		]
 	},
@@ -374,6 +398,58 @@
 		{
 			"backtrace" : 12,
 			"component" : "Unspecified",
+			"destination" : "lib/AZ_demo",
+			"paths" : 
+			[
+				{
+					"from" : "src/trajectory_gui.py",
+					"to" : "trajectory_gui"
+				}
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 13,
+			"component" : "Unspecified",
+			"destination" : "lib/AZ_demo",
+			"paths" : 
+			[
+				{
+					"from" : "src/joy_teleop.py",
+					"to" : "joy_teleop"
+				}
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 14,
+			"component" : "Unspecified",
+			"destination" : "lib/AZ_demo",
+			"paths" : 
+			[
+				{
+					"from" : "src/cartesian_admittance.py",
+					"to" : "cartesian_admittance"
+				}
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 15,
+			"component" : "Unspecified",
+			"destination" : "share/AZ_demo/config",
+			"paths" : 
+			[
+				{
+					"from" : "config",
+					"to" : "."
+				}
+			],
+			"type" : "directory"
+		},
+		{
+			"backtrace" : 16,
+			"component" : "Unspecified",
 			"destination" : "share/AZ_demo/launch",
 			"paths" : 
 			[
@@ -385,7 +461,7 @@
 			"type" : "directory"
 		},
 		{
-			"backtrace" : 19,
+			"backtrace" : 23,
 			"component" : "Unspecified",
 			"destination" : "share/ament_index/resource_index/package_run_dependencies",
 			"paths" : 
@@ -395,7 +471,7 @@
 			"type" : "file"
 		},
 		{
-			"backtrace" : 22,
+			"backtrace" : 26,
 			"component" : "Unspecified",
 			"destination" : "share/ament_index/resource_index/parent_prefix_path",
 			"paths" : 
@@ -405,7 +481,7 @@
 			"type" : "file"
 		},
 		{
-			"backtrace" : 26,
+			"backtrace" : 30,
 			"component" : "Unspecified",
 			"destination" : "share/AZ_demo/environment",
 			"paths" : 
@@ -415,7 +491,7 @@
 			"type" : "file"
 		},
 		{
-			"backtrace" : 27,
+			"backtrace" : 31,
 			"component" : "Unspecified",
 			"destination" : "share/AZ_demo/environment",
 			"paths" : 
@@ -425,7 +501,7 @@
 			"type" : "file"
 		},
 		{
-			"backtrace" : 28,
+			"backtrace" : 32,
 			"component" : "Unspecified",
 			"destination" : "share/AZ_demo/environment",
 			"paths" : 
@@ -435,7 +511,7 @@
 			"type" : "file"
 		},
 		{
-			"backtrace" : 29,
+			"backtrace" : 33,
 			"component" : "Unspecified",
 			"destination" : "share/AZ_demo/environment",
 			"paths" : 
@@ -445,7 +521,7 @@
 			"type" : "file"
 		},
 		{
-			"backtrace" : 31,
+			"backtrace" : 35,
 			"component" : "Unspecified",
 			"destination" : "share/AZ_demo",
 			"paths" : 
@@ -455,7 +531,7 @@
 			"type" : "file"
 		},
 		{
-			"backtrace" : 32,
+			"backtrace" : 36,
 			"component" : "Unspecified",
 			"destination" : "share/AZ_demo",
 			"paths" : 
@@ -465,7 +541,7 @@
 			"type" : "file"
 		},
 		{
-			"backtrace" : 33,
+			"backtrace" : 37,
 			"component" : "Unspecified",
 			"destination" : "share/AZ_demo",
 			"paths" : 
@@ -475,7 +551,7 @@
 			"type" : "file"
 		},
 		{
-			"backtrace" : 34,
+			"backtrace" : 38,
 			"component" : "Unspecified",
 			"destination" : "share/AZ_demo",
 			"paths" : 
@@ -485,7 +561,7 @@
 			"type" : "file"
 		},
 		{
-			"backtrace" : 35,
+			"backtrace" : 39,
 			"component" : "Unspecified",
 			"destination" : "share/AZ_demo",
 			"paths" : 
@@ -495,7 +571,7 @@
 			"type" : "file"
 		},
 		{
-			"backtrace" : 40,
+			"backtrace" : 44,
 			"component" : "Unspecified",
 			"destination" : "share/ament_index/resource_index/packages",
 			"paths" : 
@@ -505,7 +581,7 @@
 			"type" : "file"
 		},
 		{
-			"backtrace" : 42,
+			"backtrace" : 46,
 			"component" : "Unspecified",
 			"destination" : "share/AZ_demo/cmake",
 			"paths" : 
@@ -516,7 +592,7 @@
 			"type" : "file"
 		},
 		{
-			"backtrace" : 43,
+			"backtrace" : 47,
 			"component" : "Unspecified",
 			"destination" : "share/AZ_demo",
 			"paths" : 

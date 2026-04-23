@@ -1,12 +1,19 @@
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription
+from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
 from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
 import os
 
 
 def generate_launch_description():
+
+    output_file_arg = DeclareLaunchArgument(
+        'output_file',
+        default_value='~/ros2_ws/src/AZ_demo/recorded_trajectories/trajectory.json',
+        description='Path to save the recorded trajectory JSON file'
+    )
 
     robot_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -17,19 +24,20 @@ def generate_launch_description():
             )
         ),
         launch_arguments={
-            'use_fake_hardware': 'true',
-            'robot_ip': 'yyy.yyy.yyy.yyy'
+            'robot_ip': '192.168.1.10'
         }.items()
     )
 
-    trajectory_executor = Node(
+    joint_states_listener = Node(
         package='AZ_demo',
-        executable='execute_trajectory',
-        name='execute_trajectory',
-        output='screen'
+        executable='get_joints',
+        name='get_joints',
+        output='screen',
+        arguments=[LaunchConfiguration('output_file')]
     )
 
     return LaunchDescription([
+        output_file_arg,
         robot_launch,
-        trajectory_executor,
+        joint_states_listener,
     ])
