@@ -36,6 +36,10 @@ WEB_ARGS      = []
 ROBOT_PACKAGE = "AZ_demo"
 ROBOT_FILE    = "start_robot.launch.py"
 ROBOT_ARGS    = []
+
+EMOJIS_PACKAGE = "AZ_demo"
+EMOJIS_FILE    = "web_interface.launch.py"
+EMOJIS_ARGS    = []
 # ─────────────────────────────────────────────────
 
 FC_NODE_DELAY  = 2.0   # seconds to wait after launch before starting the node
@@ -61,6 +65,7 @@ class App:
         self.fc_node_proc: subprocess.Popen | None = None
         self.web_proc: subprocess.Popen | None = None
         self.robot_proc: subprocess.Popen | None = None
+        self.emojis_proc: subprocess.Popen | None = None
         self._spinner_job = None   # after() id for the spinner animation
 
         root.title("ROS2 Launcher")
@@ -147,10 +152,54 @@ class App:
         frame.pack(expand=True)
 
         self._btn("ARROWS", self.GREEN, self._launch_web_arrows, parent=frame).pack(pady=8)
-        self._btn("EMOJIS", self.AMBER, self._launch_web_emojis, parent=frame).pack(pady=8)
+        self._btn("EMOJIS", self.AMBER, self._show_emojis,       parent=frame).pack(pady=8)
 
         back_btn = tk.Button(
             frame, text="← BACK", command=self._show_home,
+            font=("Helvetica", 10, "bold"),
+            fg="#888888", bg=self.BG,
+            activeforeground="#aaaaaa", activebackground=self.BG,
+            relief="flat", cursor="hand2", bd=0,
+        )
+        back_btn.pack(pady=(12, 0))
+
+    def _show_emojis(self):
+        self._clear()
+        frame = tk.Frame(self.root, bg=self.BG)
+        frame.pack(expand=True)
+
+        status_var = tk.StringVar(value="")
+
+        def on_start():
+            if self.emojis_proc and self.emojis_proc.poll() is None:
+                return
+            self.emojis_proc = subprocess.Popen(
+                ["ros2", "launch", EMOJIS_PACKAGE, EMOJIS_FILE] + EMOJIS_ARGS
+            )
+            self._set_status(status_lbl, status_var, "● RUNNING", self.GREEN)
+             
+        def on_stop():
+            self._kill_proc(self.emojis_proc)
+            self.emojis_proc = None
+            self._show_web()
+
+        import webbrowser, pathlib
+        index = pathlib.Path(__file__).parent / "emojis.html"
+        webbrowser.open(index.as_uri())
+
+        self._btn("START", self.GREEN, on_start, parent=frame).pack(pady=8)
+        self._btn("STOP",  self.RED,   on_stop,  parent=frame).pack(pady=8)
+
+        status_lbl = tk.Label(
+            frame, textvariable=status_var,
+            font=("Helvetica", 11, "bold"),
+            fg=self.BG, bg=self.BG,
+            width=18,
+        )
+        status_lbl.pack(pady=(4, 0))
+
+        back_btn = tk.Button(
+            frame, text="← BACK", command=self._show_web,
             font=("Helvetica", 10, "bold"),
             fg="#888888", bg=self.BG,
             activeforeground="#aaaaaa", activebackground=self.BG,
@@ -180,15 +229,13 @@ class App:
         index = pathlib.Path(__file__).parent / "index.html"
         webbrowser.open(index.as_uri())
 
-    def _launch_web_emojis(self):
-        """Placeholder — wire up emoji launch files here."""
-        pass
-
     def _stop_web(self):
         self._kill_proc(self.web_proc)
         self.web_proc = None
         self._kill_proc(self.robot_proc)
         self.robot_proc = None
+        self._kill_proc(self.emojis_proc)
+        self.emojis_proc = None
 
     # ── status label helpers ──────────────────────
 
