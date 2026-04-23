@@ -38,12 +38,9 @@ ROBOT_FILE    = "start_robot.launch.py"
 ROBOT_ARGS    = []
 
 EMOJIS_PACKAGE = "AZ_demo"
-EMOJIS_FILE    = "web_interface.launch.py"
+EMOJIS_FILE    = "emoji.launch.py"
 EMOJIS_ARGS    = []
 
-EMOJIS_NODE_PACKAGE = "AZ_demo"
-EMOJIS_NODE_NAME    = "emoji_listener"
-EMOJIS_NODE_ARGS    = []
 # ─────────────────────────────────────────────────
 
 FC_NODE_DELAY  = 2.0   # seconds to wait after launch before starting the node
@@ -177,13 +174,23 @@ class App:
         def on_start():
             if self.emojis_proc and self.emojis_proc.poll() is None:
                 return
+
+            self.fc_proc = subprocess.Popen(
+                ["ros2", "launch", FC_PACKAGE, FC_FILE] + FC_ARGS
+            )
             self.emojis_proc = subprocess.Popen(
                 ["ros2", "launch", EMOJIS_PACKAGE, EMOJIS_FILE] + EMOJIS_ARGS
+            )
+            self.web_proc = subprocess.Popen(
+                ["ros2", "launch", WEB_PACKAGE, WEB_FILE] + WEB_ARGS
             )
             self._set_status(status_lbl, status_var, "● RUNNING", self.GREEN)
              
         def on_stop():
+            self._kill_proc(self.fc_proc)
             self._kill_proc(self.emojis_proc)
+            self._kill_proc(self.web_proc)
+            
             self.emojis_proc = None
             self._show_web()
 

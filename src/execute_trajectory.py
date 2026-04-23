@@ -21,7 +21,7 @@ JOINT_NAMES = [
 
 class TrajectoryExecutor(Node):
 
-    def __init__(self, input_file):
+    def __init__(self, input_file=DEFAULT_INPUT_FILE):
         super().__init__('trajectory_executor')
 
         self.input_file = input_file

@@ -34,14 +34,14 @@ def generate_launch_description():
     )
 
 
-    emoji = Node(
-        package='AZ_demo',
-        executable='emoji_listener',
-        name='emoji_listener',
-        output='screen'
-    )
+    # emoji_listener = Node(
+    #     package='AZ_demo',
+    #     executable='emoji_listener',
+    #     name='emoji_listener',
+    #     output='screen'
+    # )
 
     return LaunchDescription([
         robot_launch,
-        emoji_listener,
+        # emoji_listener,
     ])
