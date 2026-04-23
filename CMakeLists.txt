@@ -30,6 +30,10 @@ install(PROGRAMS src/cartesian_admittance.py
   DESTINATION lib/${PROJECT_NAME}
   RENAME cartesian_admittance)
 
+install(PROGRAMS src/emoji_listener.py
+  DESTINATION lib/${PROJECT_NAME}
+  RENAME emoji_listener)
+
 install(DIRECTORY config/
   DESTINATION share/${PROJECT_NAME}/config
 )

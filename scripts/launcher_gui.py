@@ -40,6 +40,10 @@ ROBOT_ARGS    = []
 EMOJIS_PACKAGE = "AZ_demo"
 EMOJIS_FILE    = "web_interface.launch.py"
 EMOJIS_ARGS    = []
+
+EMOJIS_NODE_PACKAGE = "AZ_demo"
+EMOJIS_NODE_NAME    = "emoji_listener"
+EMOJIS_NODE_ARGS    = []
 # ─────────────────────────────────────────────────
 
 FC_NODE_DELAY  = 2.0   # seconds to wait after launch before starting the node
