@@ -40,6 +40,10 @@ ROBOT_ARGS    = []
 EMOJIS_PACKAGE = "AZ_demo"
 EMOJIS_FILE    = "emoji.launch.py"
 EMOJIS_ARGS    = []
+
+TRAJ_PACKAGE = "AZ_demo"
+TRAJ_FILE = "execute_trajectory.py"
+TRAJ_ARGS = []
 # ─────────────────────────────────────────────────
 
 FC_NODE_DELAY  = 2.0   # seconds to wait after launch before starting the node
@@ -70,6 +74,7 @@ class App:
         self.web_proc: subprocess.Popen | None = None
         self.robot_proc: subprocess.Popen | None = None
         self.emojis_proc: subprocess.Popen | None = None
+        self.exec_proc: subprocess.Popen | None = None      # execute_trajectory
 
         self._spinner_job = None
 
@@ -183,7 +188,12 @@ class App:
             self.web_proc = subprocess.Popen(
                 ["ros2", "launch", WEB_PACKAGE, WEB_FILE] + WEB_ARGS
             )
-            self._set_status(status_lbl, status_var, "● RUNNING", self.GREEN)
+            self._start_spinner(status_lbl, status_var)
+            threading.Thread(
+                target=self._delayed_start_traj,
+                args=(status_var, status_lbl),
+                daemon=True,
+            ).start()
 
         def on_stop():
             self._stop_all()
@@ -221,12 +231,6 @@ class App:
         self.web_proc = subprocess.Popen(
             ["ros2", "launch", WEB_PACKAGE, WEB_FILE] + WEB_ARGS
         )
-        # FIX: was assigning robot_proc twice — second overwrote first,
-        # leaving start_robot.launch.py untracked and unkillable
-        # if not (self.robot_proc and self.robot_proc.poll() is None):
-        #     self.robot_proc = subprocess.Popen(
-        #         ["ros2", "launch", ROBOT_PACKAGE, ROBOT_FILE] + ROBOT_ARGS
-        #     )
         self.proc = subprocess.Popen(
             ["ros2", "launch", XBOX_PACKAGE, XBOX_FILE] + ['controller:=web']
         )
@@ -297,6 +301,19 @@ class App:
                 self._set_status(status_lbl, status_var, "● RUNNING", self.GREEN),
             ))
 
+    # ── emojis trajectory delayed start ──────────
+
+    def _delayed_start_traj(self, status_var: tk.StringVar, status_lbl: tk.Label):
+        time.sleep(FC_NODE_DELAY)
+        if self.emojis_proc and self.emojis_proc.poll() is None:
+            self.exec_proc = subprocess.Popen(
+                ["ros2", "run", TRAJ_PACKAGE, TRAJ_FILE] + TRAJ_ARGS
+            )
+            self.root.after(0, lambda: (
+                self._stop_spinner(),
+                self._set_status(status_lbl, status_var, "● RUNNING", self.GREEN),
+            ))
+
     # ── unified stop ──────────────────────────────
 
     def _stop_all(self):
@@ -308,6 +325,7 @@ class App:
             self.web_proc,
             self.robot_proc,
             self.emojis_proc,
+            self.exec_proc,
         ]
         live = [p for p in all_procs if p and p.poll() is None]
 
@@ -338,6 +356,7 @@ class App:
         self.web_proc = None
         self.robot_proc = None
         self.emojis_proc = None
+        self.exec_proc = None
 
     # ── button helper ─────────────────────────────
 

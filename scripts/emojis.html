@@ -5,158 +5,161 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Robot Action Panel</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap');
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg:       hsl(0, 0%, 100%);
-    --surface:  #dfcbcb;
-    --surface2: #1e1e1e;
-    --border:   #2a2a2a;
-    --border2:  #383838;
-    --text:     #140000;
-    --muted:    #666;
-    --accent:   #2a3504;
-    --accent-dim: rgba(200,255,0,0.12);
-    --radius:   14px;
+    --bg:        #f5f4f0;
+    --surface:   #ffffff;
+    --surface2:  #eeecf8;
+    --border:    #dddbe8;
+    --border2:   #c4c0dc;
+    --text:      #1a1830;
+    --muted:     #8c89a8;
+    --accent:    #5b48e8;
+    --accent2:   #3d2cc4;
+    --accent-glow: rgba(91, 72, 232, 0.12);
+    --radius:    16px;
   }
 
   body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Syne', sans-serif;
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2rem 1rem 3rem;
+    padding: 2.5rem 1.25rem 4rem;
+    background-image:
+      radial-gradient(ellipse 60% 40% at 50% -10%, rgba(91,72,232,0.07) 0%, transparent 70%);
   }
 
   header {
     width: 100%;
-    max-width: 560px;
+    max-width: 540px;
     display: flex;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.25rem;
     border-bottom: 1px solid var(--border);
-    padding-bottom: 1rem;
   }
 
   header h1 {
-    font-family: 'DM Mono', monospace;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    color: var(--accent);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--accent2);
     text-transform: uppercase;
   }
 
   .status-pill {
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
+    gap: 7px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
     color: var(--muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 5px 12px 5px 8px;
   }
 
   .dot {
     width: 7px; height: 7px;
     border-radius: 50%;
     background: var(--border2);
-    transition: background 0.3s;
+    transition: background 0.4s, box-shadow 0.4s;
+    flex-shrink: 0;
   }
-  .dot.ok  { background: var(--accent); box-shadow: 0 0 6px var(--accent); }
-  .dot.err { background: #ff4444; box-shadow: 0 0 6px #ff4444; }
+  .dot.ok  { background: #4ade80; box-shadow: 0 0 8px rgba(74,222,128,0.6); }
+  .dot.err { background: #f87171; box-shadow: 0 0 8px rgba(248,113,113,0.6); }
 
   .main {
     width: 100%;
-    max-width: 560px;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-
-  .section-header {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-bottom: 10px;
+    max-width: 540px;
   }
 
   .emoji-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
   }
 
   .emoji-btn {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 16px 8px 12px;
+    padding: 22px 10px 18px;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 7px;
-    transition: background 0.12s, border-color 0.12s, transform 0.1s;
+    gap: 10px;
+    transition: border-color 0.15s, background 0.15s, transform 0.1s;
     position: relative;
     overflow: hidden;
   }
 
-  .emoji-btn::after {
+  .emoji-btn::before {
     content: '';
     position: absolute;
     inset: 0;
-    border-radius: inherit;
-    background: var(--accent-dim);
+    background: var(--accent-glow);
     opacity: 0;
-    transition: opacity 0.15s;
+    transition: opacity 0.2s;
+    border-radius: inherit;
   }
 
   .emoji-btn:hover {
-    border-color: var(--border2);
+    border-color: var(--accent);
     background: var(--surface2);
   }
 
-  .emoji-btn:hover::after { opacity: 1; }
+  .emoji-btn:hover::before { opacity: 1; }
 
   .emoji-btn.fired {
-    transform: scale(0.92);
+    transform: scale(0.93);
     border-color: var(--accent);
   }
 
-  .emoji-btn.fired::after { opacity: 1; }
+  .emoji-btn.fired::before { opacity: 1; }
 
   .emoji-btn .icon {
-    font-size: 30px;
+    font-size: 36px;
     line-height: 1;
+    transition: transform 0.15s;
+  }
+
+  .emoji-btn:hover .icon {
+    transform: scale(1.12);
   }
 
   .emoji-btn .name {
-    font-size: 11px;
-    font-weight: 500;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
     color: var(--text);
     text-align: center;
     line-height: 1.2;
+    letter-spacing: 0.02em;
   }
 
   .emoji-btn .id {
-    font-family: 'DM Mono', monospace;
+    font-family: 'Space Mono', monospace;
     font-size: 9px;
     color: var(--muted);
     text-align: center;
+    letter-spacing: 0.05em;
   }
 
   .toast-wrap {
     position: fixed;
-    bottom: 24px;
+    bottom: 28px;
     left: 50%;
     transform: translateX(-50%);
     pointer-events: none;
@@ -165,16 +168,17 @@
 
   .toast {
     background: var(--surface2);
-    border: 1px solid var(--border2);
+    border: 1px solid var(--accent);
     border-radius: 100px;
-    padding: 7px 18px;
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    color: var(--accent);
+    padding: 8px 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--accent2);
     white-space: nowrap;
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(10px);
     transition: opacity 0.18s, transform 0.18s;
+    box-shadow: 0 0 20px var(--accent-glow);
   }
 
   .toast.show {
@@ -182,8 +186,8 @@
     transform: translateY(0);
   }
 
-  @media (max-width: 400px) {
-    .emoji-grid { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 380px) {
+    .emoji-grid { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
 </head>
@@ -198,15 +202,7 @@
 </header>
 
 <main class="main">
-  <section>
-    <div class="section-header">Common actions</div>
-    <div class="emoji-grid" id="grid-common"></div>
-  </section>
-
-  <section>
-    <div class="section-header">Custom actions</div>
-    <div class="emoji-grid" id="grid-custom"></div>
-  </section>
+  <div class="emoji-grid" id="grid-actions"></div>
 </main>
 
 <div class="toast-wrap">
@@ -215,27 +211,15 @@
 
 <script src="https://cdn.jsdelivr.net/npm/roslib@1/build/roslib.min.js"></script>
 <script>
-// ── Actions — edit these to add/remove/rename ─────────────────────────────
-const ACTIONS = {
-  common: [
-    { emoji: "👋", name: "Wave",       action_id: "wave"       },
-    { emoji: "🤝", name: "Handshake",  action_id: "handshake"  },
-    { emoji: "🖐️", name: "High-five",  action_id: "high_five"  },
-    { emoji: "🙌", name: "Clap",       action_id: "clap"       },
-    { emoji: "👇", name: "Point down", action_id: "point_down" },
-    { emoji: "☝️", name: "Point up",   action_id: "point_up"   },
-    { emoji: "🏠", name: "Home pose",  action_id: "home"       },
-    { emoji: "🔄", name: "Reset",      action_id: "reset"      },
-  ],
-  custom: [
-    { emoji: "📦", name: "Pick box",   action_id: "pick_box"   },
-    { emoji: "🥤", name: "Pour drink", action_id: "pour_drink" },
-    { emoji: "✍️", name: "Write",      action_id: "write"      },
-    { emoji: "🗑️", name: "Trash toss", action_id: "trash_toss" },
-  ]
-};
+const ACTIONS = [
+  { emoji: "😴", name: "Sleep",     action_id: "sleeping"  },
+  { emoji: "👋", name: "Wave",      action_id: "wave"      },
+  { emoji: "🫠", name: "Melt",      action_id: "melting"   },
+  { emoji: "😡", name: "Angry",     action_id: "angry"     },
+  { emoji: "😎", name: "Cool",      action_id: "cool"      },
+  { emoji: "🎉", name: "Celebrate", action_id: "celebrate" },
+];
 
-// ── Rosbridge connection ───────────────────────────────────────────────────
 const ros        = new ROSLIB.Ros({ url: 'ws://localhost:9090' });
 const dot        = document.getElementById('dot');
 const statusText = document.getElementById('status-text');
@@ -250,7 +234,6 @@ const actionTopic = new ROSLIB.Topic({
   messageType: 'std_msgs/String'
 });
 
-// ── Toast notification ─────────────────────────────────────────────────────
 let toastTimer;
 function showToast(msg) {
   const t = document.getElementById('toast');
@@ -260,7 +243,6 @@ function showToast(msg) {
   toastTimer = setTimeout(() => t.classList.remove('show'), 1800);
 }
 
-// ── Fire action ────────────────────────────────────────────────────────────
 function fireAction(btn, action_id, name) {
   actionTopic.publish(new ROSLIB.Message({ data: action_id }));
   showToast('▶ ' + name);
@@ -268,23 +250,17 @@ function fireAction(btn, action_id, name) {
   setTimeout(() => btn.classList.remove('fired'), 180);
 }
 
-// ── Build grids ────────────────────────────────────────────────────────────
-function buildGrid(containerId, items) {
-  const grid = document.getElementById(containerId);
-  items.forEach(item => {
-    const btn = document.createElement('button');
-    btn.className = 'emoji-btn';
-    btn.innerHTML =
-      `<span class="icon">${item.emoji}</span>` +
-      `<span class="name">${item.name}</span>` +
-      `<span class="id">${item.action_id}</span>`;
-    btn.addEventListener('click', () => fireAction(btn, item.action_id, item.name));
-    grid.appendChild(btn);
-  });
-}
-
-buildGrid('grid-common', ACTIONS.common);
-buildGrid('grid-custom', ACTIONS.custom);
+const grid = document.getElementById('grid-actions');
+ACTIONS.forEach(item => {
+  const btn = document.createElement('button');
+  btn.className = 'emoji-btn';
+  btn.innerHTML =
+    `<span class="icon">${item.emoji}</span>` +
+    `<span class="name">${item.name}</span>` +
+    `<span class="id">${item.action_id}</span>`;
+  btn.addEventListener('click', () => fireAction(btn, item.action_id, item.name));
+  grid.appendChild(btn);
+});
 </script>
 </body>
 </html>
