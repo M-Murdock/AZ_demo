@@ -31,7 +31,7 @@ MOTIONS = {
             [0.0,  -0.60,  0.0,  -1.20,  0.0,  -0.30,  1.57],  # wave down
             HOME,                                                 # return home
         ],
-        'times': [3.0, 4.5, 6.0, 7.5, 9.0, 10.5, 13.0],
+        'times': [5.0, 6.5, 8.0, 9.5, 11.0, 12.5, 15.0],
     },
 
     'laugh': {
@@ -60,6 +60,47 @@ MOTIONS = {
             HOME,                                                 # slowly return
         ],
         'times': [3.0, 6.0, 9.5, 13.0, 16.5, 22.0],
+    },
+
+    'handshake': {
+        'description': 'Extends arm forward for a handshake then returns home',
+        'waypoints': [
+            # Raise and orient arm into handshake-ready position
+            [0.0,   0.10,  0.0,  -1.40,  0.0,  -1.40,  1.57],  # lift and orient wrist
+            # Extend arm forward (reach out)
+            [0.0,   0.30,  0.0,  -1.10,  0.0,  -1.40,  1.57],  # reach forward
+            # Pump down
+            [0.0,   0.40,  0.0,  -0.95,  0.0,  -1.40,  1.57],  # pump down
+            # Pump up
+            [0.0,   0.30,  0.0,  -1.10,  0.0,  -1.40,  1.57],  # pump up
+            # Pump down
+            [0.0,   0.40,  0.0,  -0.95,  0.0,  -1.40,  1.57],  # pump down
+            # Pump up
+            [0.0,   0.30,  0.0,  -1.10,  0.0,  -1.40,  1.57],  # pump up
+            # Retract arm back
+            [0.0,   0.10,  0.0,  -1.40,  0.0,  -1.40,  1.57],  # pull back
+            HOME,                                                 # return home
+        ],
+        'times': [3.0, 5.0, 6.5, 8.0, 9.5, 11.0, 13.0, 16.0],
+    },
+
+    'cool': {
+        'description': 'Finger guns — points out, clicks, blows smoke, holsters',
+        'waypoints': [
+            # Raise arm into finger-gun pose, pointing outward
+            [0.40,  -0.10,  0.0,  -1.60,  0.30,  -1.20,  0.80],  # raise and orient
+            [0.55,  -0.10,  0.0,  -1.60,  0.30,  -1.20,  0.80],  # point out further
+            # "Click" — small sharp dip and snap back
+            [0.55,  -0.10,  0.0,  -1.60,  0.30,  -1.40,  0.80],  # click down
+            [0.55,  -0.10,  0.0,  -1.60,  0.30,  -1.20,  0.80],  # snap back up
+            # "Blow smoke" — tilt wrist toward face slowly
+            [0.55,   0.05,  0.0,  -1.50,  0.30,  -0.80,  0.80],  # tilt up/inward
+            [0.40,   0.05,  0.0,  -1.50,  0.20,  -0.70,  0.80],  # drift toward face
+            # Holster — sweep arm back down coolly
+            [0.20,  -0.10,  0.0,  -1.57,  0.0,   -1.05,  1.57],  # sweep down
+            HOME,                                                   # return home
+        ],
+        'times': [2.5, 4.0, 4.8, 5.6, 7.5, 9.5, 11.5, 14.0],
     },
 
 }
