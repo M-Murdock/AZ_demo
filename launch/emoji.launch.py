@@ -1,5 +1,5 @@
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
+from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument, TimerAction
 from launch.substitutions import LaunchConfiguration
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
@@ -26,22 +26,44 @@ def generate_launch_description():
         ),
         launch_arguments={
             'use_fake_hardware': 'false',
-            'robot_ip': '192.168.1.10',  # fixed
+            'robot_ip': '192.168.1.10',
             'gripper': 'robotiq_2f_85',
-            'robot_controller': 'twist_controller',
+            'robot_controller': 'joint_trajectory_controller',
             'launch_rviz': 'false',
         }.items()
     )
 
+    # controller_arg = DeclareLaunchArgument('controller', default_value='xbox')
 
-    # emoji_listener = Node(
+    # Activate joint_trajectory_controller and deactivate twist_controller
+    switch_controller = TimerAction(
+        period=5.0,  # wait for ros2_control to finish loading
+        actions=[
+            Node(
+                package='controller_manager',
+                executable='spawner',
+                arguments=[
+                    'joint_trajectory_controller',
+                    '--activate-as-group',
+                    '--deactivate',
+                    'twist_controller',
+                ],
+                output='screen',
+            )
+        ]
+    )
+
+    # execute_trajectory = Node(
     #     package='AZ_demo',
-    #     executable='emoji_listener',
-    #     name='emoji_listener',
+    #     executable='execute_trajectory',
+    #     # arguments=[LaunchConfiguration('controller')],
+    #     name='execute_trajectory',
     #     output='screen'
     # )
 
     return LaunchDescription([
+        # controller_arg,
         robot_launch,
-        # emoji_listener,
+        switch_controller,
+        # execute_trajectory,
     ])
