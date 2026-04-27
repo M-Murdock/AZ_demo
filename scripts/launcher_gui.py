@@ -21,13 +21,13 @@ XBOX_PACKAGE  = "AZ_demo"
 XBOX_FILE     = "xbox.launch.py"
 XBOX_ARGS     = []
 
-FC_PACKAGE    = "AZ_demo"
-FC_FILE       = "start_robot.launch.py"
-FC_ARGS       = []
-
 FC_NODE_PACKAGE = "AZ_demo"
 FC_NODE_NAME    = "cartesian_admittance"
 FC_NODE_ARGS    = []
+
+FC_PACKAGE    = "AZ_demo"
+FC_FILE       = "force_control.launch.py"
+FC_ARGS       = []
 
 WEB_PACKAGE   = "AZ_demo"
 WEB_FILE      = "web_interface.launch.py"
@@ -40,10 +40,10 @@ ROBOT_ARGS    = []
 EMOJIS_PACKAGE = "AZ_demo"
 EMOJIS_FILE    = "emoji.launch.py"
 EMOJIS_ARGS    = []
-
 # ─────────────────────────────────────────────────
 
 FC_NODE_DELAY  = 2.0   # seconds to wait after launch before starting the node
+SHUTDOWN_TIMEOUT = 5.0  # seconds to wait for processes to die before force-killing
 
 
 class LauncherNode(Node):
@@ -62,12 +62,17 @@ class App:
     def __init__(self, root: tk.Tk, node: LauncherNode):
         self.root = root
         self.node = node
-        self.proc: subprocess.Popen | None = None
-        self.fc_node_proc: subprocess.Popen | None = None
+
+        # All tracked processes in one place
+        self.proc: subprocess.Popen | None = None           # main launch (xbox / robot)
+        self.fc_proc: subprocess.Popen | None = None        # robot launch for xbox mode
+        self.fc_node_proc: subprocess.Popen | None = None  # cartesian_admittance run node
         self.web_proc: subprocess.Popen | None = None
         self.robot_proc: subprocess.Popen | None = None
         self.emojis_proc: subprocess.Popen | None = None
-        self._spinner_job = None   # after() id for the spinner animation
+        self.emojis_fc_proc: subprocess.Popen | None = None  # fc launch for emojis mode
+
+        self._spinner_job = None
 
         root.title("ROS2 Launcher")
         root.configure(bg=self.BG)
@@ -102,11 +107,10 @@ class App:
             if self.proc and self.proc.poll() is None:
                 return
             self._start(XBOX_PACKAGE, XBOX_FILE, ['controller:=xbox'])
-            # Xbox launch is ready as soon as the process spawns
             self._set_status(status_lbl, status_var, "● RUNNING", self.GREEN)
 
         def on_stop():
-            self._stop()
+            self._stop_all()
             self._show_home()
 
         self._btn("START", self.GREEN, on_start, parent=frame).pack(pady=8)
@@ -115,7 +119,7 @@ class App:
         status_lbl = tk.Label(
             frame, textvariable=status_var,
             font=("Helvetica", 11, "bold"),
-            fg=self.BG, bg=self.BG,   # invisible until set
+            fg=self.BG, bg=self.BG,
             width=18,
         )
         status_lbl.pack(pady=(4, 0))
@@ -133,7 +137,7 @@ class App:
             self._start_fc(status_var, status_lbl)
 
         def on_stop():
-            self._stop_fc()
+            self._stop_all()
             self._show_home()
 
         self._btn("START", self.GREEN, on_start, parent=frame).pack(pady=8)
@@ -174,8 +178,7 @@ class App:
         def on_start():
             if self.emojis_proc and self.emojis_proc.poll() is None:
                 return
-
-            self.fc_proc = subprocess.Popen(
+            self.emojis_fc_proc = subprocess.Popen(
                 ["ros2", "launch", FC_PACKAGE, FC_FILE] + FC_ARGS
             )
             self.emojis_proc = subprocess.Popen(
@@ -185,13 +188,9 @@ class App:
                 ["ros2", "launch", WEB_PACKAGE, WEB_FILE] + WEB_ARGS
             )
             self._set_status(status_lbl, status_var, "● RUNNING", self.GREEN)
-             
+
         def on_stop():
-            self._kill_proc(self.fc_proc)
-            self._kill_proc(self.emojis_proc)
-            self._kill_proc(self.web_proc)
-            
-            self.emojis_proc = None
+            self._stop_all()
             self._show_web()
 
         import webbrowser, pathlib
@@ -221,18 +220,18 @@ class App:
     # ── web launch helpers ────────────────────────
 
     def _launch_web_arrows(self):
-        """Launch web_interface.launch.py, start_robot.launch.py, and open index.html."""
         if self.web_proc and self.web_proc.poll() is None:
             return
         self.web_proc = subprocess.Popen(
             ["ros2", "launch", WEB_PACKAGE, WEB_FILE] + WEB_ARGS
         )
-        if self.robot_proc and self.robot_proc.poll() is None:
-            return
-        self.robot_proc = subprocess.Popen(
-            ["ros2", "launch", ROBOT_PACKAGE, ROBOT_FILE] + ROBOT_ARGS
-        )
-        self.robot_proc = subprocess.Popen(
+        # FIX: was assigning robot_proc twice — second overwrote first,
+        # leaving start_robot.launch.py untracked and unkillable
+        # if not (self.robot_proc and self.robot_proc.poll() is None):
+        #     self.robot_proc = subprocess.Popen(
+        #         ["ros2", "launch", ROBOT_PACKAGE, ROBOT_FILE] + ROBOT_ARGS
+        #     )
+        self.proc = subprocess.Popen(
             ["ros2", "launch", XBOX_PACKAGE, XBOX_FILE] + ['controller:=web']
         )
 
@@ -240,18 +239,9 @@ class App:
         index = pathlib.Path(__file__).parent / "index.html"
         webbrowser.open(index.as_uri())
 
-    def _stop_web(self):
-        self._kill_proc(self.web_proc)
-        self.web_proc = None
-        self._kill_proc(self.robot_proc)
-        self.robot_proc = None
-        self._kill_proc(self.emojis_proc)
-        self.emojis_proc = None
-
     # ── status label helpers ──────────────────────
 
     def _set_status(self, lbl: tk.Label, var: tk.StringVar, text: str, color: str):
-        """Update the status label text and colour."""
         try:
             var.set(text)
             lbl.config(fg=color, bg=self.BG)
@@ -259,7 +249,6 @@ class App:
             pass
 
     def _start_spinner(self, lbl: tk.Label, var: tk.StringVar):
-        """Animate a waiting spinner on the status label."""
         frames = ["◐ Starting…", "◓ Starting…", "◑ Starting…", "◒ Starting…"]
         idx = [0]
 
@@ -270,7 +259,7 @@ class App:
                 idx[0] += 1
                 self._spinner_job = self.root.after(200, _tick)
             except tk.TclError:
-                pass   # widget destroyed
+                pass
 
         _tick()
 
@@ -287,17 +276,13 @@ class App:
     def _start(self, package, file, args):
         if self.proc and self.proc.poll() is None:
             return
-        self.proc = subprocess.Popen(["ros2", "launch", package, file] + args)
-
-    def _stop(self):
-        self._kill_proc(self.proc)
+        self.proc    = subprocess.Popen(["ros2", "launch", package, file] + args)
+        self.fc_proc = subprocess.Popen(["ros2", "launch", ROBOT_PACKAGE, ROBOT_FILE] + ROBOT_ARGS)
 
     # ── fc launch + node control ──────────────────
 
     def _start_fc(self, status_var: tk.StringVar, status_lbl: tk.Label):
-        if self.proc and self.proc.poll() is None:
-            return
-        self.proc = subprocess.Popen(["ros2", "launch", FC_PACKAGE, FC_FILE] + FC_ARGS)
+        self.proc = subprocess.Popen(["ros2", "launch", ROBOT_PACKAGE, ROBOT_FILE] + ROBOT_ARGS)
         self._start_spinner(status_lbl, status_var)
         threading.Thread(
             target=self._delayed_start_fc_node,
@@ -311,30 +296,54 @@ class App:
             self.fc_node_proc = subprocess.Popen(
                 ["ros2", "run", FC_NODE_PACKAGE, FC_NODE_NAME] + FC_NODE_ARGS
             )
-            # Update UI from main thread once the node is actually running
             self.root.after(0, lambda: (
                 self._stop_spinner(),
                 self._set_status(status_lbl, status_var, "● RUNNING", self.GREEN),
             ))
 
-    def _stop_fc(self):
-        self._kill_proc(self.fc_node_proc)
+    # ── unified stop ──────────────────────────────
+
+    def _stop_all(self):
+        """Send SIGINT to every tracked process, then wait for all to exit."""
+        all_procs = [
+            self.proc,
+            self.fc_proc,
+            self.fc_node_proc,
+            self.web_proc,
+            self.robot_proc,
+            self.emojis_proc,
+            self.emojis_fc_proc,
+        ]
+        live = [p for p in all_procs if p and p.poll() is None]
+
+        # Signal all at once so they shut down in parallel
+        for p in live:
+            try:
+                p.send_signal(signal.SIGINT)
+            except (ProcessLookupError, OSError):
+                pass
+
+        # Wait up to SHUTDOWN_TIMEOUT for each; force-kill stragglers
+        deadline = time.monotonic() + SHUTDOWN_TIMEOUT
+        for p in live:
+            remaining = deadline - time.monotonic()
+            try:
+                p.wait(timeout=max(remaining, 0.1))
+            except subprocess.TimeoutExpired:
+                try:
+                    p.kill()
+                    p.wait(timeout=2)
+                except (ProcessLookupError, OSError):
+                    pass
+
+        # Clear all references
+        self.proc = None
+        self.fc_proc = None
         self.fc_node_proc = None
-        self._kill_proc(self.proc)
-
-
-    # ── shared kill helper ────────────────────────
-
-    def _kill_proc(self, proc: subprocess.Popen | None):
-        if proc and proc.poll() is None:
-            proc.send_signal(signal.SIGINT)
-            threading.Thread(target=self._wait_or_kill, args=(proc,), daemon=True).start()
-
-    def _wait_or_kill(self, proc: subprocess.Popen):
-        try:
-            proc.wait(timeout=3)
-        except subprocess.TimeoutExpired:
-            proc.kill()
+        self.web_proc = None
+        self.robot_proc = None
+        self.emojis_proc = None
+        self.emojis_fc_proc = None
 
     # ── button helper ─────────────────────────────
 
@@ -362,9 +371,10 @@ def main():
     threading.Thread(target=lambda: rclpy.spin(node), daemon=True).start()
 
     def _on_close():
-        app._stop_web()
-        app._kill_proc(app.fc_node_proc)
-        app._kill_proc(app.proc)
+        # Disable the close button to prevent double-calls while shutting down
+        root.protocol("WM_DELETE_WINDOW", lambda: None)
+        # Kill all ROS processes synchronously before tearing down rclpy/tk
+        app._stop_all()
         node.destroy_node()
         rclpy.try_shutdown()
         root.destroy()
