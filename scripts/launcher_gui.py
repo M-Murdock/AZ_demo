@@ -70,7 +70,6 @@ class App:
         self.web_proc: subprocess.Popen | None = None
         self.robot_proc: subprocess.Popen | None = None
         self.emojis_proc: subprocess.Popen | None = None
-        self.emojis_fc_proc: subprocess.Popen | None = None  # fc launch for emojis mode
 
         self._spinner_job = None
 
@@ -178,9 +177,6 @@ class App:
         def on_start():
             if self.emojis_proc and self.emojis_proc.poll() is None:
                 return
-            self.emojis_fc_proc = subprocess.Popen(
-                ["ros2", "launch", FC_PACKAGE, FC_FILE] + FC_ARGS
-            )
             self.emojis_proc = subprocess.Popen(
                 ["ros2", "launch", EMOJIS_PACKAGE, EMOJIS_FILE] + EMOJIS_ARGS
             )
@@ -312,7 +308,6 @@ class App:
             self.web_proc,
             self.robot_proc,
             self.emojis_proc,
-            self.emojis_fc_proc,
         ]
         live = [p for p in all_procs if p and p.poll() is None]
 
@@ -343,7 +338,6 @@ class App:
         self.web_proc = None
         self.robot_proc = None
         self.emojis_proc = None
-        self.emojis_fc_proc = None
 
     # ── button helper ─────────────────────────────
 

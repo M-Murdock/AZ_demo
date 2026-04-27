@@ -4,6 +4,7 @@ import rclpy
 import sys
 from rclpy.node import Node
 from rclpy.action import ActionClient
+from std_msgs.msg import String
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 from control_msgs.action import FollowJointTrajectory
 import builtin_interfaces.msg
@@ -67,15 +68,8 @@ MOTIONS = {
 
 class MotionPlayer(Node):
 
-    def __init__(self, motion_name: str):
+    def __init__(self):
         super().__init__('motion_player')
-
-        motion = MOTIONS[motion_name]
-        self.waypoints = motion['waypoints']
-        self.times = motion['times']
-
-        assert len(self.waypoints) == len(self.times), \
-            "waypoints and times must have the same length"
 
         self._action_client = ActionClient(
             self,
@@ -83,18 +77,48 @@ class MotionPlayer(Node):
             '/joint_trajectory_controller/follow_joint_trajectory'
         )
 
-        self.get_logger().info('Waiting for action server...')
-        self._action_client.wait_for_server()
-        self.get_logger().info(
-            f'Playing motion "{motion_name}": {motion["description"]}'
-        )
-        self._send_trajectory()
+        self._busy = False  # guard so overlapping messages don't stack up
 
-    def _send_trajectory(self):
+        self._subscription = self.create_subscription(
+            String,
+            'emoji_action',
+            self._emoji_callback,
+            10
+        )
+
+        self.get_logger().info(
+            f'Listening on /emoji_action. Valid motions: {", ".join(MOTIONS.keys())}'
+        )
+
+    def _emoji_callback(self, msg: String):
+        motion_name = msg.data.strip().lower()
+
+        if self._busy:
+            self.get_logger().warn(
+                f'Motion already in progress — ignoring "{motion_name}"'
+            )
+            return
+
+        if motion_name not in MOTIONS:
+            self.get_logger().warn(
+                f'Unknown motion: "{motion_name}". '
+                f'Valid options: {", ".join(MOTIONS.keys())}'
+            )
+            return
+
+        self.get_logger().info(
+            f'Received "{motion_name}": {MOTIONS[motion_name]["description"]}'
+        )
+        self._busy = True
+        self._send_trajectory(motion_name)
+
+    def _send_trajectory(self, motion_name: str):
+        motion = MOTIONS[motion_name]
+
         trajectory = JointTrajectory()
         trajectory.joint_names = JOINT_NAMES
 
-        for positions, t in zip(self.waypoints, self.times):
+        for positions, t in zip(motion['waypoints'], motion['times']):
             point = JointTrajectoryPoint()
             point.positions = positions
             point.velocities = [0.0] * len(JOINT_NAMES)
@@ -108,6 +132,9 @@ class MotionPlayer(Node):
         goal = FollowJointTrajectory.Goal()
         goal.trajectory = trajectory
 
+        self.get_logger().info('Waiting for action server...')
+        self._action_client.wait_for_server()
+
         future = self._action_client.send_goal_async(
             goal,
             feedback_callback=self._feedback_callback
@@ -118,7 +145,7 @@ class MotionPlayer(Node):
         goal_handle = future.result()
         if not goal_handle.accepted:
             self.get_logger().error('Goal REJECTED by controller.')
-            rclpy.shutdown()
+            self._busy = False
             return
         self.get_logger().info('Goal accepted, executing...')
         goal_handle.get_result_async().add_done_callback(self._result_callback)
@@ -132,33 +159,17 @@ class MotionPlayer(Node):
     def _result_callback(self, future):
         result = future.result().result
         if result.error_code == FollowJointTrajectory.Result.SUCCESSFUL:
-            self.get_logger().info('Motion complete!')
+            self.get_logger().info('Motion complete — ready for next command.')
         else:
             self.get_logger().error(
                 f'Motion failed with error code: {result.error_code}'
             )
-        rclpy.shutdown()
+        self._busy = False  # ready for next message
 
 
 def main(args=None):
-    # Strip ROS args, leaving only our positional argument
-    filtered = [a for a in sys.argv[1:] if not a.startswith('--ros-args')]
-
-    if not filtered:
-        print(f'Usage: motion_player.py <motion>')
-        print(f'Available motions:')
-        for name, data in MOTIONS.items():
-            print(f'  {name:<10} — {data["description"]}')
-        sys.exit(1)
-
-    motion_name = filtered[0].lower()
-    if motion_name not in MOTIONS:
-        print(f'Unknown motion: "{motion_name}"')
-        print(f'Available: {", ".join(MOTIONS.keys())}')
-        sys.exit(1)
-
     rclpy.init(args=args)
-    node = MotionPlayer(motion_name)
+    node = MotionPlayer()
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:
