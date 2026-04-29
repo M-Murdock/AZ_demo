@@ -20,87 +20,167 @@ HOME = [0.0, -0.35, 0.0, -1.57, 0.0, -1.05, 1.57]
 # ── Motion library ─────────────────────────────────────────────────────────────
 MOTIONS = {
 
-    'wave': {
-        'description': 'Raises arm and waves wrist side to side',
+    # 👍  Thumbs up
+    # Arm sweeps up and forward, wrist rotates to orient "thumb skyward",
+    # holds the pose proudly, then lowers back to home.
+    'thumbs_up': {
+        'description': 'Raises arm and tilts wrist into a proud thumbs-up pose',
         'waypoints': [
-            [0.0,  -0.60,  0.0,  -1.20,  0.0,  -0.80,  1.57],  # raise to wave-ready
-            [0.0,  -0.60,  0.0,  -1.20,  0.0,  -0.30,  1.57],  # wave down
-            [0.0,  -0.60,  0.0,  -1.20,  0.0,  -1.20,  1.57],  # wave up
-            [0.0,  -0.60,  0.0,  -1.20,  0.0,  -0.30,  1.57],  # wave down
-            [0.0,  -0.60,  0.0,  -1.20,  0.0,  -1.20,  1.57],  # wave up
-            [0.0,  -0.60,  0.0,  -1.20,  0.0,  -0.30,  1.57],  # wave down
+            [0.0,  -0.10,  0.0,  -1.80,  0.0,  -1.40,  1.57],  # lift & extend
+            [0.0,   0.10,  0.0,  -1.90,  0.0,  -1.55,  0.80],  # rotate wrist — thumb up
+            [0.0,   0.10,  0.0,  -1.90,  0.0,  -1.55,  0.80],  # hold the pose
+            [0.0,   0.10,  0.0,  -1.90,  0.0,  -1.55,  0.80],  # hold a bit longer
             HOME,                                                 # return home
         ],
-        'times': [5.0, 6.5, 8.0, 9.5, 11.0, 12.5, 15.0],
+        'times': [5.0, 8.5, 12.0, 15.5, 20.0],
     },
 
+    # 😩  Uggghh
+    # Slow forward slump, wrist droops, hangs heavily, slight sway of despair,
+    # then reluctantly lifts back to home.
+    'uggh': {
+        'description': 'Slow defeated forward droop with a limp wrist flop',
+        'waypoints': [
+            [0.0,   0.10,  0.0,  -1.20,  0.0,  -0.70,  1.57],  # begin to droop forward
+            [0.0,   0.35,  0.0,  -0.80,  0.0,  -0.30,  1.57],  # slump further
+            [0.0,   0.50,  0.0,  -0.50,  0.0,  -0.10,  2.20],  # wrist flops outward
+            [0.0,   0.55,  0.0,  -0.40,  0.0,  -0.05,  2.40],  # dead hang
+            [0.0,   0.55,  0.0,  -0.40,  0.0,  -0.05,  2.40],  # linger in despair
+            [0.0,   0.45,  0.0,  -0.55,  0.0,  -0.15,  2.10],  # sway slightly
+            [0.0,   0.55,  0.0,  -0.40,  0.0,  -0.05,  2.40],  # slump back
+            HOME,                                                 # reluctant recovery
+        ],
+        'times': [6.0, 11.0, 16.0, 20.0, 24.0, 27.0, 30.5, 37.0],
+    },
+
+    # 🙂‍↔️ Head Shake
+    # Arm holds an upright flickering pose; wrist oscillations left-right
+    # and small elbow pulses mimic a dancing flame.
+    'head-shake': {
+        'description': 'Arm holds raised pose while wrist flickers like a flame',
+        'waypoints': [
+            [0.0,  -0.40,  0.0,  -1.70,  0.0,  -1.30,  1.57],  # rise to flame-ready
+            [0.10, -0.45,  0.0,  -1.75,  0.10, -1.10,  1.20],  # flicker right-lean
+            [-.10, -0.50,  0.0,  -1.80,  -.10, -1.50,  1.90],  # flicker left-lean
+            [0.10, -0.42,  0.0,  -1.72,  0.10, -1.08,  1.15],  # flicker right
+            [-.10, -0.48,  0.0,  -1.78,  -.10, -1.48,  1.95],  # flicker left
+            [0.10, -0.44,  0.0,  -1.73,  0.10, -1.10,  1.20],  # flicker right
+            [-.10, -0.50,  0.0,  -1.80,  -.10, -1.50,  1.90],  # flicker left
+            [0.0,  -0.45,  0.0,  -1.75,  0.0,  -1.30,  1.57],  # settle centre
+            HOME,                                                 # return home
+        ],
+        'times': [5.0, 7.0, 9.0, 11.0, 13.0, 15.0, 17.0, 20.0, 25.0],
+    },
+
+    # 😂  Laugh
+    # Rocks between leaning back (j2 more negative) and lurching forward
+    # (j2 less negative / toward home) — like a body shaking with laughter.
     'laugh': {
-        'description': 'Rapid bouncy torso-like bobbing to mimic laughter',
+        'description': 'Bouncy torso-like rocking to mimic laughter',
         'waypoints': [
-            [0.0,  -0.20,  0.0,  -1.40,  0.0,  -1.05,  1.57],  # lean back slightly
-            [0.0,  -0.50,  0.0,  -1.70,  0.0,  -1.05,  1.57],  # bob forward
-            [0.0,  -0.20,  0.0,  -1.40,  0.0,  -1.05,  1.57],  # lean back
-            [0.0,  -0.50,  0.0,  -1.70,  0.0,  -1.05,  1.57],  # bob forward
-            [0.0,  -0.20,  0.0,  -1.40,  0.0,  -1.05,  1.57],  # lean back
-            [0.0,  -0.50,  0.0,  -1.70,  0.0,  -1.05,  1.57],  # bob forward
-            [0.0,  -0.20,  0.0,  -1.40,  0.0,  -1.05,  1.57],  # lean back
+            [0.0,  -0.55,  0.0,  -1.40,  0.0,  -1.05,  1.57],  # lean back
+            [0.0,  -0.20,  0.0,  -1.70,  0.0,  -1.05,  1.57],  # lurch forward
+            [0.0,  -0.55,  0.0,  -1.40,  0.0,  -1.05,  1.57],  # lean back
+            [0.0,  -0.20,  0.0,  -1.70,  0.0,  -1.05,  1.57],  # lurch forward
+            [0.0,  -0.55,  0.0,  -1.40,  0.0,  -1.05,  1.57],  # lean back
+            [0.0,  -0.20,  0.0,  -1.70,  0.0,  -1.05,  1.57],  # lurch forward
+            [0.0,  -0.55,  0.0,  -1.40,  0.0,  -1.05,  1.57],  # lean back
             HOME,                                                 # return home
         ],
-        'times': [2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 10.5],
+        'times': [4.0, 6.5, 9.0, 11.5, 14.0, 16.5, 19.0, 23.0],
     },
 
-    'sad': {
-        'description': 'Slow drooping motion, hangs low then slumps to home',
+    # 🫶  Heart hands
+    # Single arm traces a smooth upward arc to "over-heart" position,
+    # wrist curls inward, arm pulses gently twice (heartbeat), then lowers.
+    'heart_hands': {
+        'description': 'Arm sweeps to chest-over-heart pose and pulses like a heartbeat',
         'waypoints': [
-            [0.0,   0.20,  0.0,  -1.20,  0.0,  -0.50,  1.57],  # lift slightly
-            [0.0,   0.40,  0.0,  -0.80,  0.0,  -0.20,  1.57],  # droop forward
-            [0.0,   0.50,  0.0,  -0.60,  0.0,  -0.10,  1.57],  # slump deeper
-            [0.0,   0.40,  0.0,  -0.80,  0.0,  -0.20,  1.57],  # hang there
-            [0.0,   0.50,  0.0,  -0.60,  0.0,  -0.10,  1.57],  # slump again
-            HOME,                                                 # slowly return
+            [0.20, -0.10,  0.0,  -1.70,  0.30, -1.20,  1.00],  # begin sweep outward
+            [0.35, -0.05,  0.0,  -1.60,  0.45, -1.00,  0.70],  # arc up and in
+            [0.25,  0.05,  0.0,  -1.50,  0.35, -0.90,  0.50],  # settle over heart
+            [0.25,  0.00,  0.0,  -1.55,  0.35, -0.95,  0.50],  # pulse beat 1 (out)
+            [0.25,  0.05,  0.0,  -1.50,  0.35, -0.90,  0.50],  # pulse beat 1 (in)
+            [0.25,  0.00,  0.0,  -1.55,  0.35, -0.95,  0.50],  # pulse beat 2 (out)
+            [0.25,  0.05,  0.0,  -1.50,  0.35, -0.90,  0.50],  # pulse beat 2 (in)
+            HOME,                                                 # lower back home
         ],
-        'times': [3.0, 6.0, 9.5, 13.0, 16.5, 22.0],
+        'times': [5.0, 9.0, 12.5, 15.5, 18.5, 21.5, 24.5, 29.0],
     },
 
-    'handshake': {
-        'description': 'Extends arm forward for a handshake then returns home',
+    # 😱  Shocked
+    # Arm snaps backward (recoil), freezes in wide-open pose, then
+    # trembles slightly before settling back to home.
+    'shocked': {
+        'description': 'Recoil snap, freeze, then a startled tremble',
         'waypoints': [
-            # Raise and orient arm into handshake-ready position
-            [0.0,   0.10,  0.0,  -1.40,  0.0,  -1.40,  1.57],  # lift and orient wrist
-            # Extend arm forward (reach out)
-            [0.0,   0.30,  0.0,  -1.10,  0.0,  -1.40,  1.57],  # reach forward
-            # Pump down
-            [0.0,   0.40,  0.0,  -0.95,  0.0,  -1.40,  1.57],  # pump down
-            # Pump up
-            [0.0,   0.30,  0.0,  -1.10,  0.0,  -1.40,  1.57],  # pump up
-            # Pump down
-            [0.0,   0.40,  0.0,  -0.95,  0.0,  -1.40,  1.57],  # pump down
-            # Pump up
-            [0.0,   0.30,  0.0,  -1.10,  0.0,  -1.40,  1.57],  # pump up
-            # Retract arm back
-            [0.0,   0.10,  0.0,  -1.40,  0.0,  -1.40,  1.57],  # pull back
+            [0.0,  -0.70,  0.0,  -1.00,  0.0,  -0.70,  1.57],  # snap back
+            [0.0,  -0.68,  0.0,  -1.02,  0.0,  -0.72,  1.57],  # tremble 1
+            [0.0,  -0.72,  0.0,  -0.98,  0.0,  -0.68,  1.57],  # tremble 2
+            [0.0,  -0.68,  0.0,  -1.02,  0.0,  -0.72,  1.57],  # tremble 3
+            [0.0,  -0.72,  0.0,  -0.98,  0.0,  -0.68,  1.57],  # tremble 4
+            [0.0,  -0.70,  0.0,  -1.00,  0.0,  -0.70,  1.57],  # hold still
+            HOME,                                                 # recover to home
+        ],
+        'times': [3.0, 5.0, 7.0, 9.0, 11.0, 14.5, 19.0],
+    },
+
+    # 🤔  Thinking
+    # Arm rises slowly to "chin-rest" height, wrist tilts inward as if
+    # finger touching chin, holds pensively, slight contemplative bob, then lowers.
+    'thinking': {
+        'description': 'Arm raises to chin height, wrist tilts inward, holds pensively',
+        'waypoints': [
+            [0.15, -0.15,  0.0,  -1.65,  0.20, -1.30,  1.20],  # begin slow raise
+            [0.25,  0.05,  0.0,  -1.50,  0.30, -1.10,  0.90],  # approach chin height
+            [0.30,  0.10,  0.0,  -1.45,  0.35, -1.00,  0.75],  # settle, wrist inward
+            [0.30,  0.08,  0.0,  -1.47,  0.35, -1.02,  0.75],  # pensive bob up
+            [0.30,  0.12,  0.0,  -1.43,  0.35, -0.98,  0.75],  # pensive bob down
+            [0.30,  0.10,  0.0,  -1.45,  0.35, -1.00,  0.75],  # hold again
             HOME,                                                 # return home
         ],
-        'times': [3.0, 5.0, 6.5, 8.0, 9.5, 11.0, 13.0, 16.0],
+        'times': [5.5, 10.0, 14.0, 17.0, 20.0, 24.0, 29.0],
     },
 
-    'cool': {
-        'description': 'Finger guns — points out, clicks, blows smoke, holsters',
+    # 💀  Dead
+    # Arm snaps immediately to full upright (j2 very negative, j4 near 0),
+    # holds briefly, then droops in slow progressive stages — wrist rolls
+    # first (j7), then elbow buckles (j4), then shoulder tips forward (j2
+    # goes positive) until the arm hangs completely limp.
+    'dead': {
+        'description': 'Arm snaps upright then droops progressively until fully limp',
         'waypoints': [
-            # Raise arm into finger-gun pose, pointing outward
-            [0.40,  -0.10,  0.0,  -1.60,  0.30,  -1.20,  0.80],  # raise and orient
-            [0.55,  -0.10,  0.0,  -1.60,  0.30,  -1.20,  0.80],  # point out further
-            # "Click" — small sharp dip and snap back
-            [0.55,  -0.10,  0.0,  -1.60,  0.30,  -1.40,  0.80],  # click down
-            [0.55,  -0.10,  0.0,  -1.60,  0.30,  -1.20,  0.80],  # snap back up
-            # "Blow smoke" — tilt wrist toward face slowly
-            [0.55,   0.05,  0.0,  -1.50,  0.30,  -0.80,  0.80],  # tilt up/inward
-            [0.40,   0.05,  0.0,  -1.50,  0.20,  -0.70,  0.80],  # drift toward face
-            # Holster — sweep arm back down coolly
-            [0.20,  -0.10,  0.0,  -1.57,  0.0,   -1.05,  1.57],  # sweep down
-            HOME,                                                   # return home
+            [0.0,  -1.30,  0.0,  -0.20,  0.0,  -0.80,  1.57],  # snap to full upright
+            [0.0,  -1.30,  0.0,  -0.20,  0.0,  -0.80,  1.57],  # hold at peak — last moment
+            [0.0,  -1.30,  0.0,  -0.20,  0.0,  -0.80,  2.80],  # wrist rolls limp (j7)
+            [0.0,  -1.30,  0.0,  -0.55,  0.0,  -0.80,  2.80],  # elbow starts to buckle (j4)
+            [0.0,  -1.00,  0.0,  -0.90,  0.0,  -0.80,  2.80],  # shoulder begins to drop (j2)
+            [0.0,  -0.60,  0.0,  -1.10,  0.0,  -0.50,  2.80],  # continuing to slump
+            [0.0,   0.10,  0.0,  -0.80,  0.0,  -0.20,  2.80],  # shoulder tips forward
+            [0.0,   0.40,  0.0,  -0.40,  0.0,   0.00,  2.60],  # full dead hang
+            [0.0,   0.40,  0.0,  -0.40,  0.0,   0.00,  2.60],  # hold, lifeless
+            HOME,                                                 # fade out / reset
         ],
-        'times': [2.5, 4.0, 4.8, 5.6, 7.5, 9.5, 11.5, 14.0],
+        'times': [2.5, 6.0, 10.0, 14.5, 19.0, 23.5, 28.0, 32.5, 37.0, 43.0],
+    },
+
+
+    #  😳 flushed-face
+    # Big sweeping raise overhead, wrist spins with joy, arm pumps up and down
+    # twice in triumph, then glides back to home.
+    'flushed-face': {
+        'description': 'Triumphant overhead raise, joyful wrist spin, double victory pump',
+        'waypoints': [
+            [0.0,  -0.80,  0.0,  -1.80,  0.0,  -1.30,  1.57],  # sweep upward
+            [0.0,  -0.90,  0.0,  -2.00,  0.0,  -1.30,  0.50],  # spin wrist (start)
+            [0.0,  -0.90,  0.0,  -2.00,  0.0,  -1.30,  3.20],  # spin wrist (end)
+            [0.0,  -0.75,  0.0,  -1.85,  0.0,  -1.30,  1.57],  # pump down
+            [0.0,  -0.95,  0.0,  -2.00,  0.0,  -1.30,  1.57],  # pump up
+            [0.0,  -0.75,  0.0,  -1.85,  0.0,  -1.30,  1.57],  # pump down
+            [0.0,  -0.95,  0.0,  -2.00,  0.0,  -1.30,  1.57],  # pump up high
+            HOME,                                                 # return home
+        ],
+        'times': [4.5, 7.5, 10.5, 14.0, 17.5, 21.0, 24.5, 29.5],
     },
 
 }

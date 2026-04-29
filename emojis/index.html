@@ -38,7 +38,7 @@
 
   header {
     width: 100%;
-    max-width: 540px;
+    max-width: 600px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -81,7 +81,7 @@
 
   .main {
     width: 100%;
-    max-width: 540px;
+    max-width: 600px;
   }
 
   .emoji-grid {
@@ -212,16 +212,19 @@
 <script src="https://cdn.jsdelivr.net/npm/roslib@1/build/roslib.min.js"></script>
 <script>
 const ACTIONS = [
-  { emoji: "😴", name: "Sleep",     action_id: "sleeping"  },
-  { emoji: "👋", name: "Wave",      action_id: "wave"      },
-  { emoji: "🫠", name: "Melt",      action_id: "melting"   },
-  { emoji: "😡", name: "Angry",     action_id: "angry"     },
-  { emoji: "😎", name: "Cool",      action_id: "cool"      },
-  { emoji: "🎉", name: "Celebrate", action_id: "celebrate" },
+  { emoji: "👍", name: "Thumbs Up",   action_id: "thumbs_up"   },
+  { emoji: "😩", name: "Uggghh",      action_id: "uggh"        },
+  { emoji: "🙂‍↔️", name: "Head Shake",        action_id: "head-shake"        },
+  { emoji: "😂", name: "Laugh",       action_id: "laugh"       },
+  { emoji: "🫶", name: "Heart Hands", action_id: "heart_hands" },
+  { emoji: "😱", name: "Shocked",     action_id: "shocked"     },
+  { emoji: "🤔", name: "Thinking",    action_id: "thinking"    },
+  { emoji: "💀", name: "Dead",        action_id: "dead"        },
+  { emoji: "😳", name: "Flushed Face",   action_id: "flushed-face"   },
 ];
 
-// const ros        = new ROSLIB.Ros({ url: 'ws://localhost:9090' });
-const ros      = new ROSLIB.Ros({ url: 'ws://10.5.11.73:9090' });
+// const ros = new ROSLIB.Ros({ url: 'ws://localhost:9090' });
+const ros = new ROSLIB.Ros({ url: 'ws://10.5.11.73:9090' });
 const dot        = document.getElementById('dot');
 const statusText = document.getElementById('status-text');
 
