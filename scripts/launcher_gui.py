@@ -189,7 +189,7 @@ class App:
                 ["ros2", "launch", EMOJIS_PACKAGE, EMOJIS_FILE] + EMOJIS_ARGS
             )
             self.web_proc = subprocess.Popen(
-                ["ros2", "launch", WEB_PACKAGE, WEB_FILE] + WEB_ARGS#[f"web_path:={EMOJIS_WEB_PATH}"] #WEB_ARGS
+                ["ros2", "launch", WEB_PACKAGE, WEB_FILE] + [f"web_path:={EMOJIS_WEB_PATH}"]#["web_path:=EMOJIS_WEB_PATH"] #WEB_ARGS
             )
             self._start_spinner(status_lbl, status_var)
             threading.Thread(
@@ -232,7 +232,7 @@ class App:
         if self.web_proc and self.web_proc.poll() is None:
             return
         self.web_proc = subprocess.Popen(
-            ["ros2", "launch", WEB_PACKAGE, WEB_FILE] + WEB_ARGS
+            ["ros2", "launch", WEB_PACKAGE, WEB_FILE] + [f"web_path:={ARROWS_WEB_PATH}"]
         )
         self.proc = subprocess.Popen(
             ["ros2", "launch", XBOX_PACKAGE, XBOX_FILE] + ['controller:=web']
