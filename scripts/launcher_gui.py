@@ -44,6 +44,9 @@ EMOJIS_ARGS    = []
 TRAJ_PACKAGE = "AZ_demo"
 TRAJ_FILE = "execute_trajectory.py"
 TRAJ_ARGS = []
+
+ARROWS_WEB_PATH = "/home/mavis/ros2_ws/src/AZ_demo/arrows"
+EMOJIS_WEB_PATH = "/home/mavis/ros2_ws/src/AZ_demo/emojis"
 # ─────────────────────────────────────────────────
 
 FC_NODE_DELAY  = 2.0   # seconds to wait after launch before starting the node
@@ -186,7 +189,7 @@ class App:
                 ["ros2", "launch", EMOJIS_PACKAGE, EMOJIS_FILE] + EMOJIS_ARGS
             )
             self.web_proc = subprocess.Popen(
-                ["ros2", "launch", WEB_PACKAGE, WEB_FILE] + WEB_ARGS
+                ["ros2", "launch", WEB_PACKAGE, WEB_FILE] + WEB_ARGS#[f"web_path:={EMOJIS_WEB_PATH}"] #WEB_ARGS
             )
             self._start_spinner(status_lbl, status_var)
             threading.Thread(
@@ -199,9 +202,9 @@ class App:
             self._stop_all()
             self._show_web()
 
-        import webbrowser, pathlib
-        index = pathlib.Path(__file__).parent / "emojis.html"
-        webbrowser.open(index.as_uri())
+        # import webbrowser, pathlib
+        # index = pathlib.Path(__file__).parent / "emojis.html"
+        # webbrowser.open(index.as_uri())
 
         self._btn("START", self.GREEN, on_start, parent=frame).pack(pady=8)
         self._btn("STOP",  self.RED,   on_stop,  parent=frame).pack(pady=8)
@@ -235,9 +238,9 @@ class App:
             ["ros2", "launch", XBOX_PACKAGE, XBOX_FILE] + ['controller:=web']
         )
 
-        import webbrowser, pathlib
-        index = pathlib.Path(__file__).parent / "index.html"
-        webbrowser.open(index.as_uri())
+        # import webbrowser, pathlib
+        # index = pathlib.Path(__file__).parent / "index.html"
+        # webbrowser.open(index.as_uri())
 
     # ── status label helpers ──────────────────────
 

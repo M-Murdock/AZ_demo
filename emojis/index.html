@@ -220,7 +220,8 @@ const ACTIONS = [
   { emoji: "🎉", name: "Celebrate", action_id: "celebrate" },
 ];
 
-const ros        = new ROSLIB.Ros({ url: 'ws://localhost:9090' });
+// const ros        = new ROSLIB.Ros({ url: 'ws://localhost:9090' });
+const ros      = new ROSLIB.Ros({ url: 'ws://10.5.11.73:9090' });
 const dot        = document.getElementById('dot');
 const statusText = document.getElementById('status-text');
 

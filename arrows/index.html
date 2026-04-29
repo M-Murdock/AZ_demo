@@ -92,7 +92,8 @@ let translateMode = true;
 let activeDir     = null;
 
 // ── Rosbridge ─────────────────────────────────────────────────────────────
-const ros      = new ROSLIB.Ros({ url: 'ws://localhost:9090' });
+// const ros      = new ROSLIB.Ros({ url: 'ws://localhost:9090' });
+const ros      = new ROSLIB.Ros({ url: 'ws://10.5.11.73:9090' });
 const statusEl = document.getElementById('status');
 
 ros.on('connection', () => { statusEl.textContent = 'Connected'; });
