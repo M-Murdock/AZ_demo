@@ -90,23 +90,40 @@ MOTIONS = {
         'times': [4.0, 6.5, 9.0, 11.5, 14.0, 16.5, 19.0, 23.0],
     },
 
-    # 🫶  Heart hands
-    # Single arm traces a smooth upward arc to "over-heart" position,
-    # wrist curls inward, arm pulses gently twice (heartbeat), then lowers.
-    'heart_hands': {
-        'description': 'Arm sweeps to chest-over-heart pose and pulses like a heartbeat',
+    # 😭  Sobbing
+    # Arm raises to cover-face height, then heaves with deep irregular sobs —
+    # big slow drops forward (j2 positive = hunching over) punctuated by
+    # gasping lifts (j2 back negative). j7 drifts loose and wobbly throughout.
+    # Sobs get slightly smaller as energy drains. Ends fully hunched, then
+    # slowly, miserably straightens home.
+    'sobbing': {
+        'description': 'Deep heaving sobs — hunches forward, gasps back, collapses, repeats',
         'waypoints': [
-            [0.20, -0.10,  0.0,  -1.70,  0.30, -1.20,  1.00],  # begin sweep outward
-            [0.35, -0.05,  0.0,  -1.60,  0.45, -1.00,  0.70],  # arc up and in
-            [0.25,  0.05,  0.0,  -1.50,  0.35, -0.90,  0.50],  # settle over heart
-            [0.25,  0.00,  0.0,  -1.55,  0.35, -0.95,  0.50],  # pulse beat 1 (out)
-            [0.25,  0.05,  0.0,  -1.50,  0.35, -0.90,  0.50],  # pulse beat 1 (in)
-            [0.25,  0.00,  0.0,  -1.55,  0.35, -0.95,  0.50],  # pulse beat 2 (out)
-            [0.25,  0.05,  0.0,  -1.50,  0.35, -0.90,  0.50],  # pulse beat 2 (in)
-            HOME,                                                 # lower back home
+            # Raise arm to face-cover height, wrist turning inward
+            [ 0.0,  -0.90,  0.0,  -0.90,  0.0,  -0.85,  1.00],  # lift to face
+            [ 0.0,  -0.90,  0.0,  -0.90,  0.0,  -0.85,  1.00],  # hold — moment before sob
+            # Sob 1 — big heave forward and down
+            [ 0.0,   0.30,  0.0,  -1.10,  0.0,  -0.60,  1.80],  # heave forward (sob)
+            # Gasp back up
+            [ 0.0,  -0.80,  0.0,  -0.85,  0.0,  -0.85,  1.10],  # gasp upward
+            # Sob 2 — heave forward again, slightly deeper
+            [ 0.0,   0.40,  0.0,  -1.15,  0.0,  -0.55,  1.90],  # heave deeper
+            # Gasp back up, less recovery this time
+            [ 0.0,  -0.65,  0.0,  -0.90,  0.0,  -0.80,  1.20],  # weaker gasp
+            # Sob 3 — biggest heave, nearly collapsed
+            [ 0.0,   0.50,  0.0,  -1.20,  0.0,  -0.45,  2.10],  # biggest sob
+            # Barely recovers
+            [ 0.0,  -0.45,  0.0,  -1.00,  0.0,  -0.75,  1.40],  # feeble lift
+            # Sob 4 — smaller now, energy spent
+            [ 0.0,   0.35,  0.0,  -1.10,  0.0,  -0.50,  1.85],  # smaller sob
+            # Collapses into final slump, stays there
+            [ 0.0,   0.45,  0.0,  -1.15,  0.0,  -0.45,  2.00],  # final slump
+            [ 0.0,   0.45,  0.0,  -1.15,  0.0,  -0.45,  2.00],  # hold, spent
+            HOME,                                                  # slow, heavy return
         ],
-        'times': [5.0, 9.0, 12.5, 15.5, 18.5, 21.5, 24.5, 29.0],
+        'times': [5.0, 8.5, 12.0, 15.5, 19.0, 22.5, 26.0, 29.5, 33.0, 36.5, 41.0, 48.0],
     },
+
 
     # 😱  Shocked
     # Arm snaps backward (recoil), freezes in wide-open pose, then
@@ -125,22 +142,37 @@ MOTIONS = {
         'times': [3.0, 5.0, 7.0, 9.0, 11.0, 14.5, 19.0],
     },
 
-    # 🤔  Thinking
-    # Arm rises slowly to "chin-rest" height, wrist tilts inward as if
-    # finger touching chin, holds pensively, slight contemplative bob, then lowers.
-    'thinking': {
-        'description': 'Arm raises to chin height, wrist tilts inward, holds pensively',
+    # 😤  Angry fuming
+    # Short sharp jabs forward (j2 pushes positive = lunging) alternating with
+    # a tense pulled-back coil (j2 snaps negative). j1 swings the base side to
+    # side so the whole arm thrashes. j7 stays rigid throughout — no limp wrist
+    # here, pure clenched tension. Ends with one big held-forward glare, then a
+    # slow reluctant return to home.
+    'angry': {
+        'description': 'Tense coiling and sharp forward jabs with side-to-side thrashing',
         'waypoints': [
-            [0.15, -0.15,  0.0,  -1.65,  0.20, -1.30,  1.20],  # begin slow raise
-            [0.25,  0.05,  0.0,  -1.50,  0.30, -1.10,  0.90],  # approach chin height
-            [0.30,  0.10,  0.0,  -1.45,  0.35, -1.00,  0.75],  # settle, wrist inward
-            [0.30,  0.08,  0.0,  -1.47,  0.35, -1.02,  0.75],  # pensive bob up
-            [0.30,  0.12,  0.0,  -1.43,  0.35, -0.98,  0.75],  # pensive bob down
-            [0.30,  0.10,  0.0,  -1.45,  0.35, -1.00,  0.75],  # hold again
-            HOME,                                                 # return home
+            # Coil back — arm pulls up and tight, ready to explode
+            [ 0.0,  -0.80,  0.0,  -1.40,  0.0,  -1.05,  1.57],  # coil up, tense
+            # Jab 1 — lunge forward-right
+            [ 0.25,  0.20,  0.0,  -1.00,  0.0,  -0.80,  1.57],  # jab right
+            # Snap back left
+            [-0.25, -0.75,  0.0,  -1.35,  0.0,  -1.05,  1.57],  # recoil left
+            # Jab 2 — lunge forward-left
+            [-0.25,  0.20,  0.0,  -1.00,  0.0,  -0.80,  1.57],  # jab left
+            # Snap back right
+            [ 0.25, -0.75,  0.0,  -1.35,  0.0,  -1.05,  1.57],  # recoil right
+            # Jab 3 — hard lunge center
+            [ 0.0,   0.30,  0.0,  -0.90,  0.0,  -0.75,  1.57],  # jab center hard
+            # Snap back center, even more coiled
+            [ 0.0,  -0.90,  0.0,  -1.45,  0.0,  -1.05,  1.57],  # coil back hard
+            # Final glare — extend forward and hold, seething
+            [ 0.0,   0.15,  0.0,  -1.05,  0.0,  -0.85,  1.57],  # hold forward glare
+            [ 0.0,   0.15,  0.0,  -1.05,  0.0,  -0.85,  1.57],  # seethe...
+            HOME,                                                  # reluctant stand-down
         ],
-        'times': [5.5, 10.0, 14.0, 17.0, 20.0, 24.0, 29.0],
+        'times': [4.0, 6.5, 9.0, 11.5, 14.0, 16.5, 19.0, 22.0, 27.0, 33.0],
     },
+
 
     # 💀  Dead
     # Arm snaps immediately to full upright (j2 very negative, j4 near 0),
