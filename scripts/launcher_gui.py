@@ -49,8 +49,9 @@ ARROWS_WEB_PATH = "/home/mavis/ros2_ws/src/AZ_demo/arrows"
 EMOJIS_WEB_PATH = "/home/mavis/ros2_ws/src/AZ_demo/emojis"
 # ─────────────────────────────────────────────────
 
-FC_NODE_DELAY  = 2.0   # seconds to wait after launch before starting the node
-SHUTDOWN_TIMEOUT = 5.0  # seconds to wait for processes to die before force-killing
+FC_NODE_DELAY    = 2.0   # seconds to wait after launch before starting the FC node
+XBOX_READY_DELAY = 5.0   # seconds to wait before declaring Xbox mode ready — tune to match your robot's startup time
+SHUTDOWN_TIMEOUT = 5.0   # seconds to wait for processes to die before force-killing
 
 
 class LauncherNode(Node):
@@ -114,7 +115,12 @@ class App:
             if self.proc and self.proc.poll() is None:
                 return
             self._start(XBOX_PACKAGE, XBOX_FILE, ['controller:=xbox'])
-            self._set_status(status_lbl, status_var, "● RUNNING", self.GREEN)
+            self._start_spinner(status_lbl, status_var)
+            threading.Thread(
+                target=self._delayed_confirm_running,
+                args=(status_var, status_lbl, XBOX_READY_DELAY),
+                daemon=True,
+            ).start()
 
         def on_stop():
             self._stop_all()
@@ -189,7 +195,7 @@ class App:
                 ["ros2", "launch", EMOJIS_PACKAGE, EMOJIS_FILE] + EMOJIS_ARGS
             )
             self.web_proc = subprocess.Popen(
-                ["ros2", "launch", WEB_PACKAGE, WEB_FILE] + [f"web_path:={EMOJIS_WEB_PATH}"]#["web_path:=EMOJIS_WEB_PATH"] #WEB_ARGS
+                ["ros2", "launch", WEB_PACKAGE, WEB_FILE] + [f"web_path:={EMOJIS_WEB_PATH}"]
             )
             self._start_spinner(status_lbl, status_var)
             threading.Thread(
@@ -201,10 +207,6 @@ class App:
         def on_stop():
             self._stop_all()
             self._show_web()
-
-        # import webbrowser, pathlib
-        # index = pathlib.Path(__file__).parent / "emojis.html"
-        # webbrowser.open(index.as_uri())
 
         self._btn("START", self.GREEN, on_start, parent=frame).pack(pady=8)
         self._btn("STOP",  self.RED,   on_stop,  parent=frame).pack(pady=8)
@@ -237,10 +239,6 @@ class App:
         self.proc = subprocess.Popen(
             ["ros2", "launch", XBOX_PACKAGE, XBOX_FILE] + ['controller:=web']
         )
-
-        # import webbrowser, pathlib
-        # index = pathlib.Path(__file__).parent / "index.html"
-        # webbrowser.open(index.as_uri())
 
     # ── status label helpers ──────────────────────
 
@@ -281,6 +279,25 @@ class App:
             return
         self.proc    = subprocess.Popen(["ros2", "launch", package, file] + args)
         self.fc_proc = subprocess.Popen(["ros2", "launch", ROBOT_PACKAGE, ROBOT_FILE] + ROBOT_ARGS)
+        
+
+    # ── shared delayed confirm ────────────────────
+
+    def _delayed_confirm_running(
+        self, status_var: tk.StringVar, status_lbl: tk.Label, delay: float = FC_NODE_DELAY
+    ):
+        """Wait `delay` seconds, then mark RUNNING or FAILED depending on proc health."""
+        time.sleep(delay)
+        if self.proc and self.proc.poll() is None:
+            self.root.after(0, lambda: (
+                self._stop_spinner(),
+                self._set_status(status_lbl, status_var, "● RUNNING", self.GREEN),
+            ))
+        else:
+            self.root.after(0, lambda: (
+                self._stop_spinner(),
+                self._set_status(status_lbl, status_var, "✗ FAILED", self.RED),
+            ))
 
     # ── fc launch + node control ──────────────────
 
@@ -303,6 +320,11 @@ class App:
                 self._stop_spinner(),
                 self._set_status(status_lbl, status_var, "● RUNNING", self.GREEN),
             ))
+        else:
+            self.root.after(0, lambda: (
+                self._stop_spinner(),
+                self._set_status(status_lbl, status_var, "✗ FAILED", self.RED),
+            ))
 
     # ── emojis trajectory delayed start ──────────
 
@@ -315,6 +337,11 @@ class App:
             self.root.after(0, lambda: (
                 self._stop_spinner(),
                 self._set_status(status_lbl, status_var, "● RUNNING", self.GREEN),
+            ))
+        else:
+            self.root.after(0, lambda: (
+                self._stop_spinner(),
+                self._set_status(status_lbl, status_var, "✗ FAILED", self.RED),
             ))
 
     # ── unified stop ──────────────────────────────

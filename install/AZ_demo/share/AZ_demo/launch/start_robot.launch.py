@@ -27,6 +27,7 @@ def generate_launch_description():
             'use_fake_hardware': 'false',
             'robot_ip': '192.168.1.10',  # fixed
             'gripper': 'robotiq_2f_85',
+            'robot_controller': 'joint_trajectory_controller',  # changed
             'launch_rviz': 'false',
         }.items()
     )

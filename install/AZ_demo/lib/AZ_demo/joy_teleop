@@ -23,7 +23,7 @@ from tf2_ros import Buffer, TransformListener
 
 from tf2_ros import LookupException, ConnectivityException, ExtrapolationException
 
-
+import sys
 
 
 
@@ -220,6 +220,7 @@ class JoyTeleop(Node):
         # This gives the kortex driver a steady heartbeat so it never times out.
 
         self._current_twist = Twist()
+
 
         self.create_timer(1.0 / PUBLISH_HZ, self._publish_timer_cb)
 
@@ -584,10 +585,12 @@ def launch_subprocess(cmd):
 
 
 def main(args=None):
+    controller = sys.argv[1] if len(sys.argv) > 1 else 'web'
 
     print("Launching joy_node...")
 
-    # joy_proc = launch_subprocess("ros2 run joy joy_node")
+    if controller == 'xbox':
+        joy_proc = launch_subprocess("ros2 run joy joy_node")
 
 
 
@@ -611,9 +614,9 @@ def main(args=None):
 
         rclpy.shutdown()
 
-        # joy_proc.terminate()
-
-        # joy_proc.wait()
+        if controller == 'xbox':
+            joy_proc.terminate()
+            joy_proc.wait()
 
         print("All processes stopped.")
 

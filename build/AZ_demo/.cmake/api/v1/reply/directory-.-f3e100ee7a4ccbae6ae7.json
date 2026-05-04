@@ -402,8 +402,8 @@
 			"paths" : 
 			[
 				{
-					"from" : "src/trajectory_gui.py",
-					"to" : "trajectory_gui"
+					"from" : "src/joy_teleop.py",
+					"to" : "joy_teleop"
 				}
 			],
 			"type" : "file"
@@ -415,8 +415,8 @@
 			"paths" : 
 			[
 				{
-					"from" : "src/joy_teleop.py",
-					"to" : "joy_teleop"
+					"from" : "src/cartesian_admittance.py",
+					"to" : "cartesian_admittance"
 				}
 			],
 			"type" : "file"
@@ -428,8 +428,8 @@
 			"paths" : 
 			[
 				{
-					"from" : "src/cartesian_admittance.py",
-					"to" : "cartesian_admittance"
+					"from" : "src/emoji_listener.py",
+					"to" : "emoji_listener"
 				}
 			],
 			"type" : "file"
