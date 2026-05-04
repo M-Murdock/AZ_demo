@@ -53,6 +53,7 @@ def generate_launch_description():
         ]
     )
 
+    
     joy_teleop = Node(
         package='AZ_demo',
         executable='joy_teleop',
@@ -61,9 +62,22 @@ def generate_launch_description():
         output='screen'
     )
 
+    recorder_node = Node(
+        package="AZ_demo",          # ← replace with your package name
+        executable="recorder",
+        name="recorder",
+        output="screen",
+        parameters=[{
+            # List the topics you want to record.
+            # Remove (or leave empty) to record ALL topics.
+            "prefix": LaunchConfiguration('controller'),
+        }],
+    )
+
     return LaunchDescription([
         controller_arg,
         robot_launch,
         switch_controller,
         joy_teleop,
+        recorder_node
     ])

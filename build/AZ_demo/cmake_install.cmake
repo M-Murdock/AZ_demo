@@ -79,6 +79,10 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/AZ_demo" TYPE PROGRAM RENAME "recorder" FILES "/home/mavis/ros2_ws/src/AZ_demo/src/recorder.py")
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/AZ_demo" TYPE PROGRAM RENAME "cartesian_admittance" FILES "/home/mavis/ros2_ws/src/AZ_demo/src/cartesian_admittance.py")
 endif()
 

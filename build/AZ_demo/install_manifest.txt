@@ -8,6 +8,7 @@
 /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/lib/AZ_demo/get_joints
 /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/lib/AZ_demo/execute_trajectory
 /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/lib/AZ_demo/joy_teleop
+/home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/lib/AZ_demo/recorder
 /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/lib/AZ_demo/cartesian_admittance
 /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/lib/AZ_demo/emoji_listener
 /home/mavis/ros2_ws/src/AZ_demo/install/AZ_demo/share/AZ_demo/launch/xbox.launch.py

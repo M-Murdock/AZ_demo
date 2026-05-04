@@ -42,6 +42,7 @@ setup(
             'joy_teleop = AZ_demo.joy_teleop:main',
             'cartesian_admittance = AZ_demo.cartesian_admittance:main',
             'emoji_listener = AZ_demo.emoji_listener:main',
+            'recorder = AZ_demo.recorder:main',
         ],
     },
 )

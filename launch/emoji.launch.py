@@ -53,17 +53,20 @@ def generate_launch_description():
         ]
     )
 
-    # execute_trajectory = Node(
-    #     package='AZ_demo',
-    #     executable='execute_trajectory',
-    #     # arguments=[LaunchConfiguration('controller')],
-    #     name='execute_trajectory',
-    #     output='screen'
-    # )
+    recorder_node = Node(
+        package="AZ_demo",          # ← replace with your package name
+        executable="recorder",
+        name="recorder",
+        output="screen",
+        parameters=[{
+            "prefix": "emojis",
+        }],
+    )
 
     return LaunchDescription([
         # controller_arg,
         robot_launch,
         switch_controller,
         # execute_trajectory,
+        recorder_node,
     ])

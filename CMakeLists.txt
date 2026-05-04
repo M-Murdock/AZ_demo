@@ -22,6 +22,11 @@ install(PROGRAMS src/joy_teleop.py
   DESTINATION lib/${PROJECT_NAME}
   RENAME joy_teleop)
 
+install(PROGRAMS src/recorder.py
+  DESTINATION lib/${PROJECT_NAME}
+  RENAME recorder)
+
+
 install(PROGRAMS src/cartesian_admittance.py
   DESTINATION lib/${PROJECT_NAME}
   RENAME cartesian_admittance)
