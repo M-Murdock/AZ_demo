@@ -70,6 +70,12 @@ def generate_launch_description():
         parameters=[{
             # List the topics you want to record.
             # Remove (or leave empty) to record ALL topics.
+            "topics": [
+                "/joy",
+                "/twist_controller/commands",
+                "/joint_states",
+            ],
+
             "prefix": LaunchConfiguration('controller'),
         }],
     )
