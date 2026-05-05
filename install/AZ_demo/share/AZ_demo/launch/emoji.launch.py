@@ -59,6 +59,10 @@ def generate_launch_description():
         name="recorder",
         output="screen",
         parameters=[{
+            "topics": [
+                "/emoji_action",
+            ],
+
             "prefix": "emojis",
         }],
     )

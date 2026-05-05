@@ -186,8 +186,8 @@ CMakeFiles/ament_cmake_python_copy_AZ_demo_setup.dir/clean:
 # Target rules for target CMakeFiles/ament_cmake_python_build_AZ_demo_egg.dir
 
 # All Build rule for target.
-CMakeFiles/ament_cmake_python_build_AZ_demo_egg.dir/all: CMakeFiles/ament_cmake_python_copy_AZ_demo_setup.dir/all
 CMakeFiles/ament_cmake_python_build_AZ_demo_egg.dir/all: CMakeFiles/ament_cmake_python_copy_AZ_demo.dir/all
+CMakeFiles/ament_cmake_python_build_AZ_demo_egg.dir/all: CMakeFiles/ament_cmake_python_copy_AZ_demo_setup.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ament_cmake_python_build_AZ_demo_egg.dir/build.make CMakeFiles/ament_cmake_python_build_AZ_demo_egg.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ament_cmake_python_build_AZ_demo_egg.dir/build.make CMakeFiles/ament_cmake_python_build_AZ_demo_egg.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/mavis/ros2_ws/src/AZ_demo/build/AZ_demo/CMakeFiles --progress-num= "Built target ament_cmake_python_build_AZ_demo_egg"

@@ -41,10 +41,10 @@
 	"dependencies" : 
 	[
 		{
-			"id" : "ament_cmake_python_copy_AZ_demo_setup::@6890427a1f51a3e7e1df"
+			"id" : "ament_cmake_python_copy_AZ_demo::@6890427a1f51a3e7e1df"
 		},
 		{
-			"id" : "ament_cmake_python_copy_AZ_demo::@6890427a1f51a3e7e1df"
+			"id" : "ament_cmake_python_copy_AZ_demo_setup::@6890427a1f51a3e7e1df"
 		}
 	],
 	"id" : "ament_cmake_python_build_AZ_demo_egg::@6890427a1f51a3e7e1df",
