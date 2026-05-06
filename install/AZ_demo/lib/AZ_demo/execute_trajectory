@@ -215,6 +215,15 @@ MOTIONS = {
         'times': [4.5, 7.5, 10.5, 14.0, 17.5, 21.0, 24.5, 29.5],
     },
 
+
+    'go-home': {
+        'description': 'goes home',
+        'waypoints': [
+            HOME,                                                 # return home
+        ],
+        'times': [5],
+    },
+
 }
 # ──────────────────────────────────────────────────────────────────────────────
 
@@ -242,6 +251,9 @@ class MotionPlayer(Node):
         self.get_logger().info(
             f'Listening on /emoji_action. Valid motions: {", ".join(MOTIONS.keys())}'
         )
+
+    def go_home(self):
+        self._send_trajectory("go-home")
 
     def _emoji_callback(self, msg: String):
         motion_name = msg.data.strip().lower()
@@ -324,6 +336,7 @@ def main(args=None):
     rclpy.init(args=args)
     node = MotionPlayer()
     try:
+        node.go_home()
         rclpy.spin(node)
     except KeyboardInterrupt:
         pass
